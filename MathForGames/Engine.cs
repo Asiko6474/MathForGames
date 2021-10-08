@@ -9,7 +9,7 @@ namespace MathForGames
         private static bool _shouldApplicationClose = false;
         private Scene[] _scenes = new Scene[0];
         private static int _currentSceneIndex;
-
+        
         /// <summary>
         /// Called to bein the application.
         /// </summary>
@@ -34,6 +34,7 @@ namespace MathForGames
         /// </summary>
         private void Start()
         {
+            _actor = new Actor('@', new MathLibrary.Vector2 { x = 0, y = 0 });
             _scenes[_currentSceneIndex].Start();
         }
 
