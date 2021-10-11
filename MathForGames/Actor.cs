@@ -5,9 +5,15 @@ using MathLibrary;
 
 namespace MathForGames
 {
+    struct Icon
+    {
+        public char Symbol;
+        public ConsoleColor color;
+    }
+
     class Actor
     {
-        private char _icon;
+        private Icon _icon;
         private string _name;
         private Vector2 _position;
         private bool _started;
@@ -27,9 +33,9 @@ namespace MathForGames
             set { _position = value;  }
         }
 
-        public Actor(char icon, Vector2 position, string name = "Arthurd" )
+        public Actor(char icon, Vector2 position, string name = "Arthurd", ConsoleColor color = ConsoleColor.White)
         {
-            _icon = icon;
+            _icon = new Icon { Symbol = icon, color = color };
             _position = position;
             _name = name;
         }
@@ -46,8 +52,7 @@ namespace MathForGames
 
         public virtual void Draw()
         {
-            Console.SetCursorPosition((int)Position.x, (int)Position.y);
-            Console.Write(_icon);
+            Engine.Render(_icon, Position);
         }
 
         public virtual void End()
