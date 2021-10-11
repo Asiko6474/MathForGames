@@ -26,7 +26,7 @@ namespace MathForGames
                 {
                     Update();
                     Draw();
-                    Thread.Sleep(150);
+                    Thread.Sleep(0);
                 }
 
             // call end for the entire application.
@@ -39,11 +39,13 @@ namespace MathForGames
         private void Start()
         {
             Scene scene = new Scene();
-            Actor actor = new Actor('@', new MathLibrary.Vector2 { x = 0, y = 0 },  "Actor1", ConsoleColor.Yellow);
+            Actor actor = new Actor('$', new MathLibrary.Vector2 { x = 0, y = 0 },  "Actor1", ConsoleColor.Yellow);
             Actor actor2 = new Actor('&', new MathLibrary.Vector2 { x = 10, y = 10 }, "Actor2", ConsoleColor.Green);
+            Player player = new Player('@', 5, 5, 1, "Player", ConsoleColor.Red);
 
             scene.AddActor(actor);
             scene.AddActor(actor2);
+            scene.AddActor(player);
 
             _currentSceneIndex = AddScene(scene);
 
@@ -79,6 +81,9 @@ namespace MathForGames
             {
                 for (int x = 0; x < _buffer.GetLength(0); x++)
                 {
+                    if (_buffer[x, y].Symbol == '\0')
+                        _buffer[x, y].Symbol = ' ';
+
                     //Set console text color to be the color of the item at buffer
                     Console.ForegroundColor = _buffer[x, y].color;
                     //print the symbol of the item in the buffer
@@ -118,23 +123,38 @@ namespace MathForGames
             //return the last array
             return _scenes.Length - 1;
         }
+        /// <summary>
+        /// Gets the next key in the input stream
+        /// </summary>
+        /// <returns>The key that was pressed</returns>
+        public static ConsoleKey GetNextKey()
+        {
+            //If there is no key being pressed....
+            if (!Console.KeyAvailable)
+                //...return
+                return 0;
+
+            //Return the current key being pressed4
+            return Console.ReadKey(true).Key;
+        }
+
 
         /// <summary>
         /// Adds the icon to the buffer to print to the screen in the next draw call.
-        /// Prints the icon at the given posistion in the bugger.
+        /// Prints the icon at the given position in the bugger.
         /// </summary>
         /// <param name="icon">The icon to draw</param>
-        /// <param name="posistion">The posistion of the icon in the buggers</param>
+        /// <param name="position">The position of the icon in the buggers</param>
         /// <returns>False if the posistion is outside the bounds of the buffer</returns>
-        public static bool Render(Icon icon, Vector2 posistion)
+        public static bool Render(Icon icon, Vector2 position)
         {
             //if the posistion is out of bounds....
-            if (posistion.x < 0 || posistion.x > _buffer.GetLength(0) || posistion.y < 0 ||  posistion.y >= _buffer.GetLength(1))
+            if (position.x < 0 || position.x >= _buffer.GetLength(0) || position.y < 0 ||  position.y >= _buffer.GetLength(1))
                 //return false
                 return false;
 
             //Set the bugger at the index of the given posistion to be the icon.
-            _buffer[(int)posistion.x, (int)posistion.y] = icon;
+            _buffer[(int)position.x, (int)position.y] = icon;
             return true;
         }
 

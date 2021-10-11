@@ -33,6 +33,9 @@ namespace MathForGames
             set { _position = value;  }
         }
 
+        public Actor(char icon, float x, float y, string name = "Arthurd", ConsoleColor color = ConsoleColor.White) :
+            this(icon, new Vector2 { x = x, y = y }, name, color) {}
+
         public Actor(char icon, Vector2 position, string name = "Arthurd", ConsoleColor color = ConsoleColor.White)
         {
             _icon = new Icon { Symbol = icon, color = color };
