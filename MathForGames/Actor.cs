@@ -43,6 +43,11 @@ namespace MathForGames
             _name = name;
         }
 
+        public virtual void OnCollision(Actor actor)
+        {
+            Engine.CloseApplication();
+        }
+
         public virtual void Start()
         {
             _started = true;
@@ -50,7 +55,7 @@ namespace MathForGames
 
         public virtual void Update()
         {
-            _position.x =  Position.x + 1;
+            _position.x =  Position.x + 0;
         }
 
         public virtual void Draw()

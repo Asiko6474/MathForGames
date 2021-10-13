@@ -26,7 +26,8 @@ namespace MathForGames
                 {
                     Update();
                     Draw();
-                    Thread.Sleep(0);
+                    
+                    Thread.Sleep(150);
                 }
 
             // call end for the entire application.
@@ -60,6 +61,9 @@ namespace MathForGames
         private void Update()
         {
             _scenes[_currentSceneIndex].Update();
+
+            while (Console.KeyAvailable)
+                Console.ReadKey(true);
         }
 
         /// <summary>
@@ -158,5 +162,12 @@ namespace MathForGames
             return true;
         }
 
+        /// <summary>
+        /// Ends the game and closes the window. 
+        /// </summary>
+        public static void CloseApplication()
+        {
+            _shouldApplicationClose = true;
+        }
     }
 }
