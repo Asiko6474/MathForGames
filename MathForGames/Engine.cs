@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using MathLibrary;
+using Raylib_cs;
 
 namespace MathForGames
 {
     class Engine
     {
-        private static bool _shouldApplicationClose = false;
+        private static bool _applicationShouldClose = false;
         private Scene[] _scenes = new Scene[0];
         private static int _currentSceneIndex;
-        private static Icon[,] _buffer;
+        
         
         /// <summary>
         /// Called to bein the application.
@@ -22,7 +23,7 @@ namespace MathForGames
             Start();
 
             //Loop until the application is told to close.
-                while (!_shouldApplicationClose)
+                while (!Raylib.WindowShouldClose())
                 {
                     Update();
                     Draw();
@@ -39,13 +40,13 @@ namespace MathForGames
         /// </summary>
         private void Start()
         {
-            Scene scene = new Scene();
-            Actor actor = new Actor('$', new MathLibrary.Vector2 { x = 0, y = 0 },  "Actor1", ConsoleColor.Yellow);
-            Actor actor2 = new Actor('&', new MathLibrary.Vector2 { x = 10, y = 10 }, "Actor2", ConsoleColor.Green);
-            Player player = new Player('@', 5, 5, 1, "Player", ConsoleColor.Red);
+            //Create a window using raylib
+            Raylib.InitWindow(800,450, "Math For Games");
 
-            scene.AddActor(actor);
-            scene.AddActor(actor2);
+            Scene scene = new Scene();
+            
+            Player player = new Player('@', 5, 5, 1,Color.RED, "Player");
+
             scene.AddActor(player);
 
             _currentSceneIndex = AddScene(scene);
@@ -71,31 +72,11 @@ namespace MathForGames
         /// </summary>
         private void Draw()
         {
-            //Clear the stuff that was on the screen in the last frame
-            _buffer = new Icon[Console.WindowWidth, Console.WindowHeight - 1];
-
-            //Reset the curse posistion to the top of the previous scren is drawn over 
-            Console.SetCursorPosition(0, 0);
-
-            //Adds all actor icons to buffer
+            Raylib.BeginDrawing();
+            Raylib.ClearBackground(Color.BLACK);
             _scenes[_currentSceneIndex].Draw();
 
-            //Iterate through buffer
-            for (int y = 0; y < _buffer.GetLength(1); y++)
-            {
-                for (int x = 0; x < _buffer.GetLength(0); x++)
-                {
-                    if (_buffer[x, y].Symbol == '\0')
-                        _buffer[x, y].Symbol = ' ';
-
-                    //Set console text color to be the color of the item at buffer
-                    Console.ForegroundColor = _buffer[x, y].color;
-                    //print the symbol of the item in the buffer
-                    Console.Write(_buffer[x, y].Symbol);
-                }
-                //skip a line once at the end of a row
-                Console.WriteLine();
-            }
+            Raylib.EndDrawing();
         }
         /// <summary>
         /// Called when the application exits
@@ -103,6 +84,7 @@ namespace MathForGames
         private void End()
         {
             _scenes[_currentSceneIndex].End();
+            Raylib.CloseWindow();
         }
 
         /// <summary>
@@ -127,47 +109,30 @@ namespace MathForGames
             //return the last array
             return _scenes.Length - 1;
         }
-        /// <summary>
-        /// Gets the next key in the input stream
-        /// </summary>
-        /// <returns>The key that was pressed</returns>
-        public static ConsoleKey GetNextKey()
-        {
-            //If there is no key being pressed....
-            if (!Console.KeyAvailable)
-                //...return
-                return 0;
-
-            //Return the current key being pressed4
-            return Console.ReadKey(true).Key;
-        }
 
 
-        /// <summary>
-        /// Adds the icon to the buffer to print to the screen in the next draw call.
-        /// Prints the icon at the given position in the bugger.
-        /// </summary>
-        /// <param name="icon">The icon to draw</param>
-        /// <param name="position">The position of the icon in the buggers</param>
-        /// <returns>False if the posistion is outside the bounds of the buffer</returns>
-        public static bool Render(Icon icon, Vector2 position)
-        {
-            //if the posistion is out of bounds....
-            if (position.x < 0 || position.x >= _buffer.GetLength(0) || position.y < 0 ||  position.y >= _buffer.GetLength(1))
-                //return false
-                return false;
+        ///// <summary>
+        ///// Gets the next key in the input stream
+        ///// </summary>
+        ///// <returns>The key that was pressed</returns>
+        //public static ConsoleKey GetNextKey()
+        //{
+        //    //If there is no key being pressed....
+        //    if (!Console.KeyAvailable)
+        //        //...return
+        //        return 0;
 
-            //Set the bugger at the index of the given posistion to be the icon.
-            _buffer[(int)position.x, (int)position.y] = icon;
-            return true;
-        }
+        //    //Return the current key being pressed4
+        //    return Console.ReadKey(true).Key;
+        //}
+
 
         /// <summary>
         /// Ends the game and closes the window. 
         /// </summary>
         public static void CloseApplication()
         {
-            _shouldApplicationClose = true;
+            _applicationShouldClose = true;
         }
     }
 }
