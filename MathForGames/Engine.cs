@@ -58,9 +58,10 @@ namespace MathForGames
             Raylib.SetTargetFPS(30);
 
             Scene scene = new Scene();
-            Player player = new Player('@', 5, 5, 50,Color.RED, "Player");
-            Actor actor = new Actor('&', 5, 5, Color.BLUE, "Actor");
+            Player player = new Player('@', 5, 5, 50, Color.RED, "Player");
+            Actor actor = new Tagger('&', 50, 50, 20, Color.BLUE, "Actor");
 
+            scene.AddActor(actor);
             scene.AddActor(player);
             _currentSceneIndex = AddScene(scene);
             _scenes[_currentSceneIndex].Start();
@@ -71,6 +72,9 @@ namespace MathForGames
         /// </summary>
         private void Update(float deltaTime)
         {
+            
+
+
             _scenes[_currentSceneIndex].Update(deltaTime);
 
             while (Console.KeyAvailable)

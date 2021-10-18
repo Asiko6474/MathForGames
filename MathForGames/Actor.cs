@@ -14,6 +14,7 @@ namespace MathForGames
 
     class Actor
     {
+        
         private Icon _icon;
         private string _name;
         private Vector2 _position;
@@ -27,6 +28,9 @@ namespace MathForGames
         {
             get { return _started; }
         }
+       
+
+        
 
         public Vector2 Position
         {
@@ -56,7 +60,9 @@ namespace MathForGames
 
         public virtual void Update(float deltaTime)
         {
-            Console.WriteLine(_name = "Jake ",Position.x + ", " + Position.y);
+
+            Console.WriteLine(_name = "Jake " + Position.x + ", " + Position.y);
+           
         }
 
         public virtual void Draw()
