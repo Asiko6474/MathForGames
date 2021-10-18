@@ -29,17 +29,15 @@ namespace MathForGames
             _speed = speed;
         }
 
-        public override void Update()
+        public override void Update(float deltaTime)
         {
             int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_D));
             int yDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
 
+            //create a vector that stores the move input
             Vector2 moveDirection = new Vector2(xDirection, yDirection);
 
-            //newPosition.x += Position.x + Velocity.x;
-            //newPosition.y += Position.y + Velocity.y;
-
-            Velocity = moveDirection * Speed;
+            Velocity = moveDirection.Normalized * Speed * deltaTime;
 
             Position += Velocity; 
         }

@@ -30,7 +30,7 @@ namespace MathForGames
                 while (!Raylib.WindowShouldClose())
                 {
                 //Get how much time has passed since the application started
-                currentTime = _stopwatch.ElapsedMilliseconds;
+                currentTime = _stopwatch.ElapsedMilliseconds / 1000.0f;
 
                 //Set delta time to be the difference in time from the last time recorded to the current time 
                 deltaTime = currentTime - lastTime;
@@ -58,7 +58,7 @@ namespace MathForGames
             Raylib.SetTargetFPS(30);
 
             Scene scene = new Scene();
-            Player player = new Player('@', 5, 5, 1,Color.RED, "Player");
+            Player player = new Player('@', 5, 5, 50,Color.RED, "Player");
 
             scene.AddActor(player);
             _currentSceneIndex = AddScene(scene);
