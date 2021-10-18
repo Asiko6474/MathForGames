@@ -31,24 +31,13 @@ namespace MathForGames
 
         public override void Update()
         {
-            Vector2 moveDirection = new Vector2();
+            int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_D));
+            int yDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
 
-            ConsoleKey keyPressed = Engine.GetNextKey();
+            Vector2 moveDirection = new Vector2(xDirection, yDirection);
 
-            if (keyPressed == ConsoleKey.A)
-                moveDirection = new Vector2 { x = -1 };
-            if (keyPressed == ConsoleKey.D)
-                moveDirection = new Vector2 { x = 1 };
-            if (keyPressed == ConsoleKey.W)
-                moveDirection = new Vector2 { y = -1 };
-            if (keyPressed == ConsoleKey.S)
-                moveDirection = new Vector2 { y = 1 };
-
-            Vector2 newPosition = new Vector2();
-
-            newPosition.x += Position.x + Velocity.x;
-            newPosition.y += Position.y + Velocity.y;
-
+            //newPosition.x += Position.x + Velocity.x;
+            //newPosition.y += Position.y + Velocity.y;
 
             Velocity = moveDirection * Speed;
 

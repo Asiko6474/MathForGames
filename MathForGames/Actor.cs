@@ -54,9 +54,8 @@ namespace MathForGames
             _started = true;
         }
 
-        public virtual void Update()
+        public virtual void Update(float deltaTime)
         {
-            _position.x =  Position.x + 0;
         }
 
         public virtual void Draw()

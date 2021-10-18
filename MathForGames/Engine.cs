@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Diagnostics;
 using MathLibrary;
 using Raylib_cs;
 
@@ -12,6 +13,7 @@ namespace MathForGames
         private static bool _applicationShouldClose = false;
         private Scene[] _scenes = new Scene[0];
         private static int _currentSceneIndex;
+        private Stopwatch _stopwatch = new Stopwatch();
         
         
         /// <summary>
@@ -21,14 +23,24 @@ namespace MathForGames
         {
             //Call start for the entire application.
             Start();
-
+            float currentTime = 0;
+            float lastTime = 0;
+            float deltaTime = 0;
             //Loop until the application is told to close.
                 while (!Raylib.WindowShouldClose())
                 {
-                    Update();
+                //Get how much time has passed since the application started
+                currentTime = _stopwatch.ElapsedMilliseconds;
+
+                //Set delta time to be the difference in time from the last time recorded to the current time 
+                deltaTime = currentTime - lastTime;
+                //Update the application
+                    Update(deltaTime);
+                //Draw all items
                     Draw();
                     
-                    Thread.Sleep(150);
+                //Set the last time recorded to be the current time
+                lastTime = currentTime;
                 }
 
             // call end for the entire application.
@@ -40,28 +52,25 @@ namespace MathForGames
         /// </summary>
         private void Start()
         {
+            _stopwatch.Start();
             //Create a window using raylib
             Raylib.InitWindow(800,450, "Math For Games");
+            Raylib.SetTargetFPS(30);
 
             Scene scene = new Scene();
-            
             Player player = new Player('@', 5, 5, 1,Color.RED, "Player");
 
             scene.AddActor(player);
-
             _currentSceneIndex = AddScene(scene);
-
             _scenes[_currentSceneIndex].Start();
-
-            Console.CursorVisible = false;
         }
 
         /// <summary>
         /// Called everytime the game loops
         /// </summary>
-        private void Update()
+        private void Update(float deltaTime)
         {
-            _scenes[_currentSceneIndex].Update();
+            _scenes[_currentSceneIndex].Update(deltaTime);
 
             while (Console.KeyAvailable)
                 Console.ReadKey(true);
@@ -73,7 +82,9 @@ namespace MathForGames
         private void Draw()
         {
             Raylib.BeginDrawing();
+
             Raylib.ClearBackground(Color.BLACK);
+
             _scenes[_currentSceneIndex].Draw();
 
             Raylib.EndDrawing();

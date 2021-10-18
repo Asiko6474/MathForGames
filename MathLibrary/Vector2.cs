@@ -9,6 +9,12 @@ namespace MathLibrary
         public float x;
         public float y;
 
+        public Vector2(float x1, float y1)
+        {
+            x = x1;
+            y = y1;
+        }
+            
 
         /// <summary>
         /// Adds the x values of the second vector to the first, and adds the y values of the second vector to the first
