@@ -8,8 +8,8 @@ namespace MathForGames
 {
     struct Icon
     {
-        public char Symbol;
-        public Color color;
+        public  char Symbol;
+        public  Color color;
     }
 
     class Actor
@@ -46,7 +46,7 @@ namespace MathForGames
 
         public virtual void OnCollision(Actor actor)
         {
-            Engine.CloseApplication();
+            Console.WriteLine("Collision occured");
         }
 
         public virtual void Start()
@@ -56,11 +56,12 @@ namespace MathForGames
 
         public virtual void Update(float deltaTime)
         {
+            Console.WriteLine(_name = "Jake ",Position.x + ", " + Position.y);
         }
 
         public virtual void Draw()
         {
-            //Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.x, (int)Position.y, 50, Icon.color);
+            Raylib.DrawText(_icon.Symbol.ToString(), (int)Position.x, (int)Position.y, 50, _icon.color);
         }
 
         public virtual void End()
