@@ -89,7 +89,7 @@ namespace MathLibrary
       /// <returns></returns>
         public static Vector2 operator *(Vector2 lhs, float scalar)
         {
-            return new Vector2 { x = lhs.x * scalar, y = scalar * lhs.y };
+            return new Vector2 { x = lhs.x * scalar, y =  lhs.y * scalar};
         }
 
         /// <summary>

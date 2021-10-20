@@ -12,7 +12,8 @@ namespace MathForGames
         private Actor _target;
         private float _speed;
         private Vector2 _velocity;
-        
+        public float _maxViewAngle;
+        public float _maxSightDistance;
       
 
         public float Speed
@@ -27,17 +28,19 @@ namespace MathForGames
             set { _velocity = value; }
         }
 
-        public Tagger(char icon, float x, float y, float speed, Color color, Actor target, string name = "Tagger")
+        public Tagger(char icon, float x, float y, float speed, float maxViewAngle, float maxSightDistance, Color color, Actor target, string name = "Tagger")
             : base(icon, x, y, color, name)
         {
             _target = target;
             _speed = speed;
+            _maxSightDistance = maxSightDistance;
+            _maxViewAngle = maxViewAngle;
         }
 
         public override void Update(float deltaTime)
         {
             //create a vector that stores the move input
-            Vector2 moveDirection = (_target.Position - Position).Normalized;
+            Vector2 moveDirection = ( Position - _target.Position).Normalized;
 
             Velocity = moveDirection * Speed * deltaTime;
 
@@ -49,9 +52,12 @@ namespace MathForGames
 
         public bool GetTargetInsight()
         {
-            Vector2 directionOfTarget = (_target.Position - Position).Normalized;
+            Vector2 directionOfTarget = ( _target.Position - Position).Normalized;
+            float distanceToTarget = Vector2.Distance(_target.Position, Position);
 
-            return Vector2.DotProduct(directionOfTarget, Forward) > 0 && Vector2.DotProduct(directionOfTarget, Forward) < 25;
+            float dotProduct = Vector2.DotProduct(directionOfTarget, Forward);
+
+            return Math.Acos(dotProduct) < _maxViewAngle && distanceToTarget < _maxSightDistance;
         }
 
 

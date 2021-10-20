@@ -20,6 +20,7 @@ namespace MathForGames
         private Vector2 _position;
         private bool _started;
         private Vector2 _forward = new Vector2(1,0);
+        public float _collisionRadius;
 
 
         /// <summary>
@@ -29,7 +30,11 @@ namespace MathForGames
         {
             get { return _started; }
         }
-       
+        public float CollisionRadius
+        {
+            get { return _collisionRadius; }
+            set { _collisionRadius = value; }
+        }
 
         public Vector2 Forward
         {
@@ -83,6 +88,19 @@ namespace MathForGames
         public virtual void End()
         {
 
+        }
+
+        /// <summary>
+        /// Checks if this actor collided with another actor
+        /// </summary>
+        /// <param name="other">The actor to check for a collision against</param>
+        /// <returns>True if the distance between the actors is less than the radii of the two combined</returns>
+        public virtual bool CheckForCollision(Actor other)
+        {
+            float combinedRadii = other.CollisionRadius + CollisionRadius;
+            float Distance = Vector2.Distance(Position, other.Position);
+
+            return Distance <= combinedRadii;
         }
     }
 }

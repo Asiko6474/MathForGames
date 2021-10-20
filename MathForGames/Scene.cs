@@ -10,10 +10,12 @@ namespace MathForGames
         /// Array that contains all actors in the scene
         /// </summary>
         private Actor[] _actors;
+        private Actor[] _UIElements;
 
         public Scene()
         {
             _actors = new Actor[0];
+            _UIElements = new Actor[0];
         }
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace MathForGames
 
                 for (int j = 0; j < _actors.Length; j++)
                 {
-                    if (_actors[i].Position == _actors[j].Position && j != i)
+                    if (_actors[i].CheckForCollision(_actors[j]) && j != i)
                         _actors[i].OnCollision(_actors[j]);
                 }
             }
@@ -55,9 +57,15 @@ namespace MathForGames
                 _actors[i].Draw();
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
+        
+        public virtual void DrawUI()
+        {
+            for (int i = 0; i < _UIElements.Length; i++)
+            {
+                _UIElements[i].Draw();
+            }
+        }
+
         public virtual void End()
         {
             for (int i = 0; i < _actors.Length; i++)
@@ -85,6 +93,30 @@ namespace MathForGames
             //set the old array to be the new aray
             _actors = tempArray;
         }
+
+
+        /// <summary>
+        /// Adds an actor to the scenes list of actors.
+        /// </summary>
+        /// <param name="UI">The actor to add to the scene</param>
+        public virtual void AddUIElement(Actor UI)
+        {
+            //create a temp array larger than the original
+            Actor[] tempArray = new Actor[_UIElements.Length + 1];
+
+            //cop all values from the original array into the temp array
+            for (int i = 0; i < _actors.Length; i++)
+            {
+                tempArray[i] = _UIElements[i];
+            }
+
+            //add the new actor to the end of the new array
+            tempArray[_UIElements.Length] = UI;
+
+            //set the old array to be the new array
+            _UIElements = tempArray;
+        }
+
 
         /// <summary>
         /// Removes the actor from the scene

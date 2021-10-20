@@ -59,8 +59,13 @@ namespace MathForGames
 
             Scene scene = new Scene();
             Player player = new Player('@', 5, 5, 150, Color.RED, "Player");
-            Actor actor = new Tagger('&', 50, 200, 1, Color.BLUE, player, "Actor");
+            player.CollisionRadius = 10;
+            Actor actor = new Tagger('&', 50, 200, 100, 100, 100, Color.BLUE, player, "Actor");
+            actor.CollisionRadius = 10;
 
+            UIText text = new UIText(10, 10, "test", Color.DARKGREEN, 70, 20, 100, "This is a test text");
+
+            scene.AddUIElement(text);
             scene.AddActor(actor);
             scene.AddActor(player);
             _currentSceneIndex = AddScene(scene);
