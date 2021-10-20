@@ -6,10 +6,14 @@ using Raylib_cs;
 
 namespace MathForGames
 {
+    
     class Tagger : Actor
     {
+        private Actor _target;
         private float _speed;
         private Vector2 _velocity;
+        
+      
 
         public float Speed
         {
@@ -23,28 +27,34 @@ namespace MathForGames
             set { _velocity = value; }
         }
 
-        public Tagger(char icon, float x, float y, float speed, Color color, string name = "Tagger")
+        public Tagger(char icon, float x, float y, float speed, Color color, Actor target, string name = "Tagger")
             : base(icon, x, y, color, name)
         {
+            _target = target;
             _speed = speed;
         }
 
         public override void Update(float deltaTime)
         {
-            
-
             //create a vector that stores the move input
-            Vector2 moveDirection = new Vector2(GetPlayerPosition.x, GetPlayerPosition.y);
+            Vector2 moveDirection = (_target.Position - Position).Normalized;
 
-            Velocity = moveDirection.Normalized * Speed * deltaTime;
+            Velocity = moveDirection * Speed * deltaTime;
 
-            Position += Velocity;
+            if (GetTargetInsight())
+                Position += Velocity;
+
+            base.Update(deltaTime);
         }
-        public Vector2 GetPlayerPosition
+
+        public bool GetTargetInsight()
         {
-            get { return Position; }
-            set { Position = value; }
+            Vector2 directionOfTarget = (_target.Position - Position).Normalized;
+
+            return Vector2.DotProduct(directionOfTarget, Forward) > 0 && Vector2.DotProduct(directionOfTarget, Forward) < 25;
         }
+
+
 
         public virtual void OnCollision(Actor actor)
         {

@@ -19,6 +19,7 @@ namespace MathForGames
         private string _name;
         private Vector2 _position;
         private bool _started;
+        private Vector2 _forward = new Vector2(1,0);
 
 
         /// <summary>
@@ -30,12 +31,21 @@ namespace MathForGames
         }
        
 
-        
+        public Vector2 Forward
+        {
+            get { return _forward; }
+            set { _forward = value; }
+        }
 
         public Vector2 Position
         {
             get { return _position;  }
             set { _position = value;  }
+        }
+
+        public Icon Icon
+        {
+            get { return _icon; }
         }
 
         public Actor(char icon, float x, float y, Color color, string name = "Arthurd") :
@@ -67,7 +77,7 @@ namespace MathForGames
 
         public virtual void Draw()
         {
-            Raylib.DrawText(_icon.Symbol.ToString(), (int)Position.x, (int)Position.y, 50, _icon.color);
+            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.x, (int)Position.y, 50, Icon.color);
         }
 
         public virtual void End()

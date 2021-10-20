@@ -38,7 +38,7 @@ namespace MathForGames
                     Update(deltaTime);
                 //Draw all items
                     Draw();
-                    
+                
                 //Set the last time recorded to be the current time
                 lastTime = currentTime;
                 }
@@ -55,11 +55,11 @@ namespace MathForGames
             _stopwatch.Start();
             //Create a window using raylib
             Raylib.InitWindow(800,450, "Math For Games");
-            Raylib.SetTargetFPS(30);
+            Raylib.SetTargetFPS(60);
 
             Scene scene = new Scene();
-            Player player = new Player('@', 5, 5, 50, Color.RED, "Player");
-            Actor actor = new Tagger('&', 50, 50, 20, Color.BLUE, "Actor");
+            Player player = new Player('@', 5, 5, 150, Color.RED, "Player");
+            Actor actor = new Tagger('&', 50, 200, 1, Color.BLUE, player, "Actor");
 
             scene.AddActor(actor);
             scene.AddActor(player);
@@ -72,9 +72,6 @@ namespace MathForGames
         /// </summary>
         private void Update(float deltaTime)
         {
-            
-
-
             _scenes[_currentSceneIndex].Update(deltaTime);
 
             while (Console.KeyAvailable)

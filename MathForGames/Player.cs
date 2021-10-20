@@ -41,11 +41,7 @@ namespace MathForGames
 
             Position += Velocity; 
         }
-        public Vector2 GetPlayerPosition
-        {
-            get { return Position; }
-            set { Position = value; }
-        }
+        
 
         public virtual void OnCollision(Actor actor)
         {

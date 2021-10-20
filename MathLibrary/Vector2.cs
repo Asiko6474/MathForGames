@@ -50,6 +50,26 @@ namespace MathLibrary
                 return value.Normalize();
             }
         }
+
+        
+        /// <param name="lhs">The left hand side of the operation</param>
+        /// <param name="rhs">The right hand side of the operation</param>
+        /// <returns>The dot product of the first vector on to the second</returns>
+        public static float DotProduct(Vector2 lhs, Vector2 rhs)
+        {
+            return lhs.x * rhs.x + lhs.y * rhs.y;
+        }
+
+        /// <summary>
+        /// Finds the distance from the first vector to the second
+        /// </summary>
+        /// <param name="lhs">The starting point </param>
+        /// <param name="rhs">The ending point</param>
+        /// <returns>Scalar representing the distances</returns>
+        public static float Distance(Vector2 lhs, Vector2 rhs)
+        {
+            return (rhs - lhs).Magnitude;
+        }
         /// <summary>
         /// Adds the x values of the second vector to the first, and adds the y values of the second vector to the first
         /// </summary>
@@ -80,7 +100,7 @@ namespace MathLibrary
         /// <returns>Result of the vector scaling</returns>
         public static Vector2 operator /(Vector2 lhs, float scalar)
         {
-            return new Vector2 { x = lhs.x / scalar, y = scalar * lhs.y };
+            return new Vector2 { x = lhs.x / scalar, y = lhs.y / scalar };
         }
 
         /// <summary>
