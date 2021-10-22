@@ -113,20 +113,20 @@ namespace MathLibrary
         {
             return new Vector2 { x = lhs.x - rhs.x, y = rhs.y - lhs.y };
         }
-       /// <summary>
-       /// Comapres the x and y values of two vectors.
-       /// </summary>
-       /// <param name="lhs">The left side of the comparison</param>
-       /// <param name="rhs">The right side of the comparison</param>
-       /// <returns>True if the x values of both vectors </returns>
+        /// <summary>
+        /// Comapres the x and y values of two vectors.
+        /// </summary>
+        /// <param name="lhs">The left side of the comparison</param>
+        /// <param name="rhs">The right side of the comparison</param>
+        /// <returns>True if the x values of both vectors </returns>
         public static bool operator ==(Vector2 lhs, Vector2 rhs)
         {
-            return rhs.x == lhs.x && lhs.y == rhs.y; 
+            return  lhs.x == rhs.x && lhs.y == rhs.y; 
         }
 
         public static bool operator !=(Vector2 lhs, Vector2 rhs)
         {
-            return rhs.x != lhs.x && lhs.y != rhs.y;
+            return lhs.x != rhs.x && lhs.y != rhs.y;
         }
 
     }

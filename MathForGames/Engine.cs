@@ -60,13 +60,15 @@ namespace MathForGames
             Scene scene = new Scene();
             Player player = new Player('@', 5, 5, 150, Color.RED, "Player");
             player.CollisionRadius = 10;
-            Actor actor = new Tagger('&', 50, 200, 100, 100, 100, Color.BLUE, player, "Actor");
-            actor.CollisionRadius = 10;
+            Tagger tagger = new Tagger('&', 50, 200, 100, 100, 100, Color.BLUE, player, "Actor");
+            tagger.CollisionRadius = 10;
 
-            UIText text = new UIText(10, 10, "test", Color.DARKGREEN, 70, 20, 100, "This is a test text");
+            // x position, y position, name, color, width, height, fontsize, text
+            UIText text = new UIText(50, 20, "test", Color.DARKGREEN, 70, 70, 15, "This is a test text");
+            tagger.Speech = text;
 
             scene.AddUIElement(text);
-            scene.AddActor(actor);
+            scene.AddActor(tagger);
             scene.AddActor(player);
             _currentSceneIndex = AddScene(scene);
             _scenes[_currentSceneIndex].Start();
@@ -93,6 +95,7 @@ namespace MathForGames
             Raylib.ClearBackground(Color.BLACK);
 
             _scenes[_currentSceneIndex].Draw();
+            _scenes[_currentSceneIndex].DrawUI();
 
             Raylib.EndDrawing();
         }

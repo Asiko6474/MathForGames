@@ -14,6 +14,7 @@ namespace MathForGames
         private Vector2 _velocity;
         public float _maxViewAngle;
         public float _maxSightDistance;
+        public UIText Speech;
       
 
         public float Speed
@@ -39,8 +40,11 @@ namespace MathForGames
 
         public override void Update(float deltaTime)
         {
+            Speech.Text = "Enemy";
+            Speech.Position = Position + new Vector2(0, -5);
+
             //create a vector that stores the move input
-            Vector2 moveDirection = ( Position - _target.Position).Normalized;
+            Vector2 moveDirection = ( _target.Position - Position).Normalized;
 
             Velocity = moveDirection * Speed * deltaTime;
 
@@ -64,7 +68,9 @@ namespace MathForGames
 
         public virtual void OnCollision(Actor actor)
         {
-            Console.WriteLine("Collision Detected");
+            Scene scene = new Scene();
+            if (actor is Player)
+                scene.RemoveActor(actor);
         }
     }
 }

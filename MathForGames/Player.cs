@@ -45,8 +45,8 @@ namespace MathForGames
 
         public virtual void OnCollision(Actor actor)
         {
-            if (actor is Tagger)
-                Engine.CloseApplication();
+            //if (actor is Tagger)
+            //    Engine.CloseApplication();
         }
     }
 }

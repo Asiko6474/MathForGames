@@ -65,7 +65,9 @@ namespace MathForGames
 
         public virtual void OnCollision(Actor actor)
         {
-            Console.WriteLine("Collision occured");
+            Scene scene = new Scene();
+            if (actor is Player)
+                scene.RemoveActor(actor);
         }
 
         public virtual void Start()

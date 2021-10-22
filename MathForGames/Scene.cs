@@ -105,7 +105,7 @@ namespace MathForGames
             Actor[] tempArray = new Actor[_UIElements.Length + 1];
 
             //cop all values from the original array into the temp array
-            for (int i = 0; i < _actors.Length; i++)
+            for (int i = 0; i < _UIElements.Length; i++)
             {
                 tempArray[i] = _UIElements[i];
             }
@@ -127,12 +127,13 @@ namespace MathForGames
         {
             //create a variable to store if the removal was successful
             bool actorRemoved = false;
-            
+
             //Create a new array that is smaller than the original
             Actor[] tempArray = new Actor[_actors.Length - 1];
+
             //Copy all values except the actor we don't want into the new array
             int j = 0;
-          for (int i = 0; i < tempArray.Length; i++)
+            for (int i = 0; i < tempArray.Length; i++)
             {
                 //if the actor taht the loop is on is not the one to remove...
                 if (_actors[i] != actor)
@@ -143,21 +144,15 @@ namespace MathForGames
                 }
                 //otherwise if this actor is the one to remove...
                 else
-                {
                     //...set actorRemoved to be true
                     actorRemoved = true;
-                }
             }
-          //if the actor removal was successful...
-          if (actorRemoved)
+            //if the actor removal was successful...
+            if (actorRemoved == true)
                 //...set the old array to be the new array
                 _actors = tempArray;
 
           return actorRemoved;
-            
-            
         }
-
-
     }
 }
