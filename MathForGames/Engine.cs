@@ -64,10 +64,13 @@ namespace MathForGames
             tagger.CollisionRadius = 10;
 
             // x position, y position, name, color, width, height, fontsize, text
-            UIText text = new UIText(50, 20, "test", Color.DARKGREEN, 70, 70, 15, "This is a test text");
-            tagger.Speech = text;
+            UIText taggerText = new UIText(50, 20, "test", Color.DARKGREEN, 70, 70, 15, "This is a test text");
+            UIText playerText = new UIText(50, 20, "test", Color.DARKGREEN, 70, 70, 15, "This is a test text");
+            tagger.Speech = taggerText;
+            player.Speech = playerText;
 
-            scene.AddUIElement(text);
+            scene.AddUIElement(playerText);
+            scene.AddUIElement(taggerText);
             scene.AddActor(tagger);
             scene.AddActor(player);
             _currentSceneIndex = AddScene(scene);

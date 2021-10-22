@@ -10,7 +10,6 @@ namespace MathForGames
     {
         private float _speed;
         private Vector2 _velocity;
-        private Icon _icon;
 
         public float Speed
         {

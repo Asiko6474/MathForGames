@@ -8,6 +8,7 @@ namespace MathForGames
 {
     class Player : Actor
     {
+        public UIText Speech;
         private float _speed;
         private Vector2 _velocity;
 
@@ -31,6 +32,8 @@ namespace MathForGames
         
         public override void Update(float deltaTime)
         {
+            Speech.Text = "Player";
+            Speech.Position = Position + new Vector2(0, -5);
             int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_D));
             int yDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
 
