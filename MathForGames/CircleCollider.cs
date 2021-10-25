@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MathLibrary;
-
+using Raylib_cs;
 namespace MathForGames
 {
     class CircleCollider : Collider
@@ -21,13 +21,45 @@ namespace MathForGames
 
         public override bool CheckCollisionCircle(CircleCollider other)
         {
+            
             if (other.Owner == Owner)
                 return false;
 
+            
             float distance = Vector2.Distance(other.Owner.Position, Owner.Position);
             float combinedRadii = other.CollisionRadius + CollisionRadius;
 
             return distance <= combinedRadii;
+        }
+
+
+        public override bool CheckCollisionAABB(AABBCollider other)
+        {
+            //Return false if this collider is checking collision against itself
+            if (other.Owner == Owner)
+                return false;
+
+            //Get the direction from this collider to the AABB
+            Vector2 direction = Owner.Position - other.Owner.Position;
+
+            //clamp the direction from this vector to get the closest point to the circle
+            direction.x = Math.Clamp(direction.x, -other.Width / 2, other.Width / 2);
+            direction.y = Math.Clamp(direction.y, -other.Height / 2, other.Height / 2);
+
+            //Add the direction vector to the AABB center to get the closest point to the circle
+            Vector2 closestPoint = other.Owner.Position + direction;
+
+            //Find the distance from the circle's center to the closest point
+            float distanceFromClosestPoint = Vector2.Distance(Owner.Position, closestPoint);
+
+            //return whether or not the distance is less than the circle's radius
+            return distanceFromClosestPoint <= CollisionRadius;
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
+            Raylib.DrawCircleLines((int)Owner.Position.x, (int)Owner.Position.y, CollisionRadius, Color.PURPLE);
         }
     }
 }

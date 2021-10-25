@@ -61,12 +61,20 @@ namespace MathForGames
 
             //X position, Y position, speed, Max ViewAngle, Max sight distance, Color, Name
             Player player = new Player('@', 5, 5, 150, Color.RED, "Player");
+
+            //player collider but for circles
             CircleCollider PlayerCollider = new CircleCollider(15, player);
+            //player collider but for boxes
+            AABBCollider PlayerBoxCollider = new AABBCollider(36, 36, player);
             player.Collider = PlayerCollider;
 
             //X position, Y position, speed, Max ViewAngle, Max sight distance, Color, Target, Name
             Tagger tagger = new Tagger('&', 50, 200, 100, 100, 100, Color.BLUE, player, "Actor");
+
+            //Collider but for circles
             CircleCollider enemyCollider = new CircleCollider(15, tagger);
+            //Collider but for boxes
+            AABBCollider enemyBoxCollider = new AABBCollider(32, 32, tagger);
             tagger.Collider = enemyCollider;
             Tagger tagger2 = new Tagger('&', 40, 100, 100, 100, 100, Color.BLUE, player, "Actor");
             

@@ -34,7 +34,7 @@ namespace MathForGames
         {
             Speech.Text = "Player";
             Speech.Position = Position + new Vector2(0, -5);
-            Console.WriteLine("Player " + Position.x + ", " + Position.y);
+            //Console.WriteLine("Player " + Position.x + ", " + Position.y);
             
             int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_D));
             int yDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
@@ -55,6 +55,12 @@ namespace MathForGames
         {
             //if (actor is Tagger)
             //    Engine.CloseApplication();
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
+            Collider.Draw();
         }
     }
 }

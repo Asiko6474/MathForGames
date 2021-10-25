@@ -78,13 +78,13 @@ namespace MathForGames
         public virtual void Update(float deltaTime)
         {
 
-            Console.WriteLine(_name = "Jake " + Position.x + ", " + Position.y);
+            //Console.WriteLine(_name = "Jake " + Position.x + ", " + Position.y);
            
         }
 
         public virtual void Draw()
         {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.x, (int)Position.y, 50, Icon.color);
+            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.x - 18, (int)Position.y - 28, 50, Icon.color);
         }
 
         public virtual void End()
