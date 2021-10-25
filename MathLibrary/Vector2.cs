@@ -78,7 +78,7 @@ namespace MathLibrary
         /// <returns>The result of the vector additions</returns>
         public static Vector2 operator +(Vector2 lhs, Vector2 rhs)
         {
-            return new Vector2 { x = lhs.x + rhs.x, y = rhs.y + lhs.y };
+            return new Vector2 { x = lhs.x + rhs.x, y = lhs.y + rhs.y };
         }
 
       /// <summary>
@@ -111,7 +111,7 @@ namespace MathLibrary
         /// <returns></returns>
         public static Vector2 operator -(Vector2 lhs, Vector2 rhs)
         {
-            return new Vector2 { x = lhs.x - rhs.x, y = rhs.y - lhs.y };
+            return new Vector2 { x = lhs.x - rhs.x, y = lhs.y - rhs.y };
         }
         /// <summary>
         /// Comapres the x and y values of two vectors.

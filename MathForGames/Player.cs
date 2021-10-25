@@ -34,8 +34,13 @@ namespace MathForGames
         {
             Speech.Text = "Player";
             Speech.Position = Position + new Vector2(0, -5);
+            Console.WriteLine("Player " + Position.x + ", " + Position.y);
+            
             int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_D));
             int yDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
+
+            int BulletDirectionX = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_EIGHT)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_TWO));
+            int BulletDirectionY = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_FOUR)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_SIX));
 
             //create a vector that stores the move input
             Vector2 moveDirection = new Vector2(xDirection, yDirection);

@@ -20,7 +20,7 @@ namespace MathForGames
         private Vector2 _position;
         private bool _started;
         private Vector2 _forward = new Vector2(1,0);
-        public float _collisionRadius;
+        public Collider _collider;
 
 
         /// <summary>
@@ -30,10 +30,12 @@ namespace MathForGames
         {
             get { return _started; }
         }
-        public float CollisionRadius
+
+        
+        public Collider Collider
         {
-            get { return _collisionRadius; }
-            set { _collisionRadius = value; }
+            get { return _collider; }
+            set { _collider = value; }
         }
 
         public Vector2 Forward
@@ -52,7 +54,7 @@ namespace MathForGames
         {
             get { return _icon; }
         }
-
+        //X position, Y position, color, name
         public Actor(char icon, float x, float y, Color color, string name = "Arthurd") :
             this(icon, new Vector2 { x = x, y = y }, color, name) {}
 
@@ -65,9 +67,7 @@ namespace MathForGames
 
         public virtual void OnCollision(Actor actor)
         {
-            Scene scene = new Scene();
-            if (actor is Player)
-                scene.RemoveActor(actor);
+            Console.WriteLine("collision detected");
         }
 
         public virtual void Start()
@@ -99,10 +99,11 @@ namespace MathForGames
         /// <returns>True if the distance between the actors is less than the radii of the two combined</returns>
         public virtual bool CheckForCollision(Actor other)
         {
-            float combinedRadii = other.CollisionRadius + CollisionRadius;
-            float Distance = Vector2.Distance(Position, other.Position);
+            //Return flse if either actor doesn't have a collider attached
+            if (Collider == null || other.Collider == null)
+                return false;
 
-            return Distance <= combinedRadii;
+            return Collider.CheckCollision(other);
         }
     }
 }

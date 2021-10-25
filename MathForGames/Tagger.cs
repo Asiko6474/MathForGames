@@ -28,7 +28,7 @@ namespace MathForGames
             get { return _velocity; }
             set { _velocity = value; }
         }
-
+        //X position, Y position, speed, Max ViewAngle, Max sight distance, Color, Target, Name
         public Tagger(char icon, float x, float y, float speed, float maxViewAngle, float maxSightDistance, Color color, Actor target, string name = "Tagger")
             : base(icon, x, y, color, name)
         {
@@ -68,9 +68,7 @@ namespace MathForGames
 
         public virtual void OnCollision(Actor actor)
         {
-            Scene scene = new Scene();
-            if (actor is Player)
-                scene.RemoveActor(actor);
+
         }
     }
 }

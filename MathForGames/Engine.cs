@@ -58,20 +58,32 @@ namespace MathForGames
             Raylib.SetTargetFPS(60);
 
             Scene scene = new Scene();
+
+            //X position, Y position, speed, Max ViewAngle, Max sight distance, Color, Name
             Player player = new Player('@', 5, 5, 150, Color.RED, "Player");
-            player.CollisionRadius = 10;
+            CircleCollider PlayerCollider = new CircleCollider(15, player);
+            player.Collider = PlayerCollider;
+
+            //X position, Y position, speed, Max ViewAngle, Max sight distance, Color, Target, Name
             Tagger tagger = new Tagger('&', 50, 200, 100, 100, 100, Color.BLUE, player, "Actor");
-            tagger.CollisionRadius = 10;
+            CircleCollider enemyCollider = new CircleCollider(15, tagger);
+            tagger.Collider = enemyCollider;
+            Tagger tagger2 = new Tagger('&', 40, 100, 100, 100, 100, Color.BLUE, player, "Actor");
+            
+            Tagger tagger3 = new Tagger('&', 200, 50, 100, 100, 100, Color.BLUE, player, "Actor");
+            
 
             // x position, y position, name, color, width, height, fontsize, text
-            UIText taggerText = new UIText(50, 20, "test", Color.DARKGREEN, 70, 70, 15, "This is a test text");
-            UIText playerText = new UIText(50, 20, "test", Color.DARKGREEN, 70, 70, 15, "This is a test text");
+            UIText taggerText = new UIText(50, 20, "test", Color.DARKGREEN, 70, 70, 15, "I should not be able to see this text");
+            UIText playerText = new UIText(50, 20, "test", Color.DARKGREEN, 70, 70, 15, "I should not be able to see this text");
             tagger.Speech = taggerText;
             player.Speech = playerText;
 
             scene.AddUIElement(playerText);
             scene.AddUIElement(taggerText);
             scene.AddActor(tagger);
+            //scene.AddActor(tagger2);
+            //scene.AddActor(tagger3);
             scene.AddActor(player);
             _currentSceneIndex = AddScene(scene);
             _scenes[_currentSceneIndex].Start();
