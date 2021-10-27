@@ -81,7 +81,7 @@ namespace MathForGames
 
         public virtual void Update(float deltaTime)
         {
-
+            _transform = _translation * _rotation * _scale;
             //Console.WriteLine(_name = "Jake " + Position.x + ", " + Position.y);
            
         }
@@ -111,10 +111,63 @@ namespace MathForGames
             return Collider.CheckCollision(other);
         }
 
+        /// <summary>
+        /// Creates a new matrix that has been scaled by the given value
+        /// </summary>
+        /// <param name="x">The value used to scale the matrix in the x axis.</param>
+        /// <param name="y">The value used to scale the matrix in the y axis.</param>
+        public void SetTranslation(float x, float y)
+        {
+
+        }
+
+        /// <summary>
+        /// Increases the position of the actor by the given values.
+        /// </summary>
+        /// <param name="translationX">The amount to move on the x</param>
+        /// <param name="translationY">The amount to move on the y</param>
+        public void Translate(float translationX, float translationY)
+        {
+
+        }
+
+        /// <summary>
+        /// Set the rotation of the actor
+        /// </summary>
+        /// <param name="radians">The angle of the new rotation in radians.</param>
+        public void SetRotation(float radians)
+        {
+
+        }
+
+        /// <summary>
+        /// Adds a rotation to the current transform's rotation.
+        /// </summary>
+        /// <param name="radians">The angle in radians to turn.</param>
+        public void Rotate(float radians)
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void SetScale(float x, float y)
         {
             _transform.M00 = x;
             _transform.M11 = y;
+        }
+
+        /// <summary>
+        /// Scales the actor by the given amount.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void Scale(float x, float y)
+        {
+
         }
     }
 }
