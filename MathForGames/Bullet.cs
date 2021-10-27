@@ -23,8 +23,8 @@ namespace MathForGames
             set { _velocity = value; }
         }
 
-        public Bullet(char icon, float x, float y, float speed, Color color, string name = "Bullet")
-            : base(icon, x, y, color, name)
+        public Bullet( float x, float y, float speed, string name = "Bullet", string path = "" )
+            : base(x, y, name)
         {
             _speed = speed;
         }

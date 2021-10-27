@@ -24,8 +24,8 @@ namespace MathForGames
             set { _velocity = value; }
         }
 
-        public Player(char icon, float x, float y, float speed,Color color, string name = "Default" ) 
-            : base(icon, x, y,color, name)
+        public Player(float x, float y, float speed, string name = "Default", string path = "" ) 
+            : base( x, y, name, path)
         {
             _speed = speed;
         }
@@ -33,13 +33,17 @@ namespace MathForGames
         public override void Update(float deltaTime)
         {
             Speech.Text = "Player";
-            Speech.Position = Position + new Vector2(0, -5);
+            Speech.Position = Position + new Vector2(10, -25);
             //Console.WriteLine("Player " + Position.x + ", " + Position.y);
             
+            //Allows the player to move left and right, with A being left and D being right.
             int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_D));
+            //Allows the player to move up and down, with W being up and S being down.
             int yDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
 
+            //Allows the player to shoot up and down, with eight being up and two being down. The idea of this is to match the direction of shooting with the numpad.
             int BulletDirectionX = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_EIGHT)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_TWO));
+            //Allows the player to shoot left and right, with four being left and six being down.
             int BulletDirectionY = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_FOUR)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_SIX));
 
             //create a vector that stores the move input
@@ -60,6 +64,8 @@ namespace MathForGames
         public override void Draw()
         {
             base.Draw();
+
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT))
             Collider.Draw();
         }
     }

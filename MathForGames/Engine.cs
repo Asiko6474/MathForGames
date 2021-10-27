@@ -59,26 +59,27 @@ namespace MathForGames
 
             Scene scene = new Scene();
 
-            //X position, Y position, speed, Max ViewAngle, Max sight distance, Color, Name
-            Player player = new Player('@', 5, 5, 150, Color.RED, "Player");
+            //X position, Y position, speed, Name, Sprite.
+            Player player = new Player(5, 5, 150, "Player", "Images/player.png");
 
             //player collider but for circles
             CircleCollider PlayerCollider = new CircleCollider(15, player);
+
+            //Sets the size of the sprite, X by Y.
+            player.SetScale(50, 50);
             //player collider but for boxes
             AABBCollider PlayerBoxCollider = new AABBCollider(36, 36, player);
-            player.Collider = PlayerCollider;
+            player.Collider = PlayerBoxCollider;
 
-            //X position, Y position, speed, Max ViewAngle, Max sight distance, Color, Target, Name
-            Tagger tagger = new Tagger('&', 50, 200, 100, 100, 100, Color.BLUE, player, "Actor");
-
+            //X position, Y position, speed, Max ViewAngle, Max sight distance, Target, Name, Sprite.
+            Tagger tagger = new Tagger( 50, 200, 100, 100, 100, player, "Actor", "Images/tagger.png");
+            tagger.SetScale(50, 50);
             //Collider but for circles
             CircleCollider enemyCollider = new CircleCollider(15, tagger);
             //Collider but for boxes
             AABBCollider enemyBoxCollider = new AABBCollider(32, 32, tagger);
-            tagger.Collider = enemyCollider;
-            Tagger tagger2 = new Tagger('&', 40, 100, 100, 100, 100, Color.BLUE, player, "Actor");
-            
-            Tagger tagger3 = new Tagger('&', 200, 50, 100, 100, 100, Color.BLUE, player, "Actor");
+            tagger.Collider = enemyBoxCollider;
+           
             
 
             // x position, y position, name, color, width, height, fontsize, text
@@ -90,8 +91,6 @@ namespace MathForGames
             scene.AddUIElement(playerText);
             scene.AddUIElement(taggerText);
             scene.AddActor(tagger);
-            //scene.AddActor(tagger2);
-            //scene.AddActor(tagger3);
             scene.AddActor(player);
             _currentSceneIndex = AddScene(scene);
             _scenes[_currentSceneIndex].Start();

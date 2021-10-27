@@ -29,8 +29,8 @@ namespace MathForGames
             set { _velocity = value; }
         }
         
-        public Tagger(char icon, float x, float y, float speed, float maxViewAngle, float maxSightDistance, Color color, Actor target, string name = "Tagger")
-            : base(icon, x, y, color, name)
+        public Tagger( float x, float y, float speed, float maxViewAngle, float maxSightDistance, Actor target, string name = "Tagger", string path = "")
+            : base( x, y, name, path)
         {
             _target = target;
             _speed = speed;
@@ -41,7 +41,7 @@ namespace MathForGames
         public override void Update(float deltaTime)
         {
             Speech.Text = "Enemy";
-            Speech.Position = Position + new Vector2(0, -5);
+            Speech.Position = Position + new Vector2(25, -25);
 
             //create a vector that stores the move input
             Vector2 moveDirection = ( _target.Position - Position).Normalized;
@@ -73,7 +73,8 @@ namespace MathForGames
         public override void Draw()
         {
             base.Draw();
-            Collider.Draw();
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT))
+                Collider.Draw();
         }
     }
 }

@@ -6,21 +6,20 @@ using Raylib_cs;
 
 namespace MathForGames
 {
-    struct Icon
-    {
-        public  char Symbol;
-        public  Color color;
-    }
 
     class Actor
     {
         
-        private Icon _icon;
         private string _name;
         private Vector2 _position;
         private bool _started;
         private Vector2 _forward = new Vector2(1,0);
         public Collider _collider;
+        private Matrix3 _transform = Matrix3.Identity;
+        private Matrix3 _translation = Matrix3.Identity;
+        private Matrix3 _rotation = Matrix3.Identity;
+        private Matrix3 _scale = Matrix3.Identity;
+        private Sprite _sprite;
 
 
         /// <summary>
@@ -44,30 +43,35 @@ namespace MathForGames
             set { _forward = value; }
         }
 
+        public Sprite Sprite
+        {
+            get { return _sprite; }
+            set { _sprite = value; }
+        }
+
         public Vector2 Position
         {
-            get { return _position;  }
-            set { _position = value;  }
+            get { return new Vector2(_transform.M02, _transform.M12);  }
+            set { _transform.M02 = value.x; _transform.M12 = value.y;  }
         }
 
-        public Icon Icon
-        {
-            get { return _icon; }
-        }
-        //X position, Y position, color, name
-        public Actor(char icon, float x, float y, Color color, string name = "Arthurd") :
-            this(icon, new Vector2 { x = x, y = y }, color, name) {}
 
-        public Actor(char icon, Vector2 position, Color color, string name = "Arthurd")
+        //X position, Y position, Name, sprite
+        public Actor( float x, float y, string name = "Arthurd", string path = "") :
+            this( new Vector2 { x = x, y = y }, name, path) {}
+
+        public Actor(Vector2 position, string name = "Arthurd", string path = "")
         {
-            _icon = new Icon { Symbol = icon, color = color };
-            _position = position;
+            Position = position;
             _name = name;
+
+            if (path != "")
+                _sprite = new Sprite(path);
         }
 
         public virtual void OnCollision(Actor actor)
         {
-            Console.WriteLine("collision detected");
+            //Console.WriteLine("collision detected");
         }
 
         public virtual void Start()
@@ -84,7 +88,8 @@ namespace MathForGames
 
         public virtual void Draw()
         {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.x - 18, (int)Position.y - 28, 50, Icon.color);
+            if (_sprite != null)
+                _sprite.Draw(_transform);
         }
 
         public virtual void End()
@@ -104,6 +109,12 @@ namespace MathForGames
                 return false;
 
             return Collider.CheckCollision(other);
+        }
+
+        public void SetScale(float x, float y)
+        {
+            _transform.M00 = x;
+            _transform.M11 = y;
         }
     }
 }
