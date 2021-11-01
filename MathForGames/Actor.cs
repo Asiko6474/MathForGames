@@ -52,10 +52,17 @@ namespace MathForGames
         public Vector2 Position
         {
             get { return new Vector2(_transform.M02, _transform.M12);  }
-            set { _transform.M02 = value.x; _transform.M12 = value.y;  }
+            set
+            {
+                SetTranslation(value.x, value.y);
+            }
         }
 
-
+            public Vector2 Size
+        {
+            get { return new Vector2(_scale.M00, _scale.M11);  }
+            set { SetScale(value.x, value.y); }
+        }
         //X position, Y position, Name, sprite
         public Actor( float x, float y, string name = "Arthurd", string path = "") :
             this( new Vector2 { x = x, y = y }, name, path) {}
@@ -116,9 +123,9 @@ namespace MathForGames
         /// </summary>
         /// <param name="x">The value used to scale the matrix in the x axis.</param>
         /// <param name="y">The value used to scale the matrix in the y axis.</param>
-        public void SetTranslation(float x, float y)
+        public void SetTranslation(float translationx, float translationy)
         {
-
+            _translation = Matrix3.CreateTranslation(translationx, translationy);
         }
 
         /// <summary>
@@ -128,7 +135,7 @@ namespace MathForGames
         /// <param name="translationY">The amount to move on the y</param>
         public void Translate(float translationX, float translationY)
         {
-
+            _translation = Matrix3.CreateTranslation(translationX, translationY);
         }
 
         /// <summary>
@@ -137,7 +144,7 @@ namespace MathForGames
         /// <param name="radians">The angle of the new rotation in radians.</param>
         public void SetRotation(float radians)
         {
-
+            _rotation = Matrix3.CreateRotation(radians);
         }
 
         /// <summary>
@@ -146,7 +153,7 @@ namespace MathForGames
         /// <param name="radians">The angle in radians to turn.</param>
         public void Rotate(float radians)
         {
-
+            _rotation = Matrix3.CreateRotation(radians);
         }
 
         /// <summary>
@@ -156,8 +163,7 @@ namespace MathForGames
         /// <param name="y"></param>
         public void SetScale(float x, float y)
         {
-            _transform.M00 = x;
-            _transform.M11 = y;
+            _scale = Matrix3.CreateScale(x, y);
         }
 
         /// <summary>
@@ -167,7 +173,7 @@ namespace MathForGames
         /// <param name="y"></param>
         public void Scale(float x, float y)
         {
-
+            _scale *= Matrix3.CreateScale(x, y);
         }
     }
 }

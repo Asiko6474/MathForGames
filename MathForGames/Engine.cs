@@ -67,6 +67,7 @@ namespace MathForGames
 
             //Sets the size of the sprite, X by Y.
             player.SetScale(50, 50);
+            player.SetTranslation(200, 200);
             //player collider but for boxes
             AABBCollider PlayerBoxCollider = new AABBCollider(36, 36, player);
             player.Collider = PlayerBoxCollider;

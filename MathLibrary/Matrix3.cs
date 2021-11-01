@@ -34,17 +34,24 @@ namespace MathLibrary
         /// <returns></returns>
         public static Matrix3 CreateRotation(float radians)
         {
-
+            return new Matrix3 
+                (
+                (float)Math.Cos(radians), (float)Math.Sin(radians), 0,
+                -(float)Math.Sin(radians), (float)Math.Cos(radians), 0,
+                0, 0, 1
+                );
         }
 
         /// <summary>
-        /// 
+        /// creates a new matric that has been translated by the given value
         /// </summary>
-        /// <param name="position"></param>
+        /// <param name="translation"></param>
         /// <returns></returns>
-        public static Matrix3 CreateTranslation(Vector2 translation)
+        public static Matrix3 CreateTranslation(float x, float y)
         {
-
+            return new Matrix3(1, 0, x,
+                               0, 1, y,
+                               0, 0, 1);
         }
 
         /// <summary>
@@ -52,21 +59,48 @@ namespace MathLibrary
         /// </summary>
         /// <param name="scale"></param>
         /// <returns></returns>
-        public static Matrix3 CreateScale(Vector2 scale)
+        public static Matrix3 CreateScale(float x, float y)
         {
-
+            return new Matrix3 (x, 0, 0,
+                               0, y, 0,
+                               0, 0, 1);
         }
 
         public static Matrix3 operator +(Matrix3 lhs, Matrix3 rhs)
         {
-
+            return new Matrix3(lhs.M00 + rhs.M00, lhs.M01 + rhs.M01, lhs.M02 + rhs.M02, 
+                               lhs.M10 + rhs.M10, lhs.M11 + rhs.M11, lhs.M12 + rhs.M22,
+                               lhs.M20 + rhs.M20, lhs.M21 + rhs.M21, lhs.M22 + rhs.M22);
         }
         public static Matrix3 operator -(Matrix3 lhs, Matrix3 rhs)
         {
-
+            return new Matrix3(lhs.M00 - rhs.M00, lhs.M01 - rhs.M01, lhs.M02 - rhs.M02,
+                               lhs.M10 - rhs.M10, lhs.M11 - rhs.M11, lhs.M12 - rhs.M22,
+                               lhs.M20 - rhs.M20, lhs.M21 - rhs.M21, lhs.M22 - rhs.M22);
         }
         public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)
         {
+            //Row 1, colum 1
+            return new Matrix3(lhs.M00 * rhs.M00 + lhs.M01 * rhs.M10 + lhs.M02 * rhs.M20,
+                               //Row 1, colum2 
+                               lhs.M00 * rhs.M01 + lhs.M01 * rhs.M11 + lhs.M02 * rhs.M21,
+                               //Row 1, colum3
+                               lhs.M00 * rhs.M02 + lhs.M01 * rhs.M12 + lhs.M02 * rhs.M22,
+
+                               //Row2, colum 1
+                               lhs.M10 * rhs.M00 + lhs.M11 * rhs.M10 + lhs.M12 * rhs.M20,
+                               //Row2, colum2
+                               lhs.M10 * rhs.M01 + lhs.M11 * rhs.M11 + lhs.M12 * rhs.M21,
+                               //Row2, colum3
+                               lhs.M10 * rhs.M02 + lhs.M21 * rhs.M11 + lhs.M12 * rhs.M22,
+
+                               //Row 3 colum3
+                               lhs.M20 * rhs.M00 + lhs.M20 * rhs.M10 + lhs.M22 * rhs.M22,
+                               //row 3 colum2
+                               lhs.M20 * rhs.M11 + lhs.M21 * rhs.M11 + lhs.M22 * rhs.M21,
+                               //row 3 colum2
+                               lhs.M20 * rhs.M02 + lhs.M21 * rhs.M12 + lhs.M22 * rhs.M22);
+
 
         }
     }
