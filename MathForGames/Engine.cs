@@ -60,7 +60,7 @@ namespace MathForGames
             Scene scene = new Scene();
 
             //X position, Y position, speed, Name, Sprite.
-            Player player = new Player(5, 5, 150, "Player", "Images/player.png");
+            Player player = new Player(100, 100, 150, "Player", "Images/player.png");
 
             //player collider but for circles
             CircleCollider PlayerCollider = new CircleCollider(15, player);
