@@ -41,23 +41,23 @@ namespace MathForGames
         public override void Update(float deltaTime)
         {
             Speech.Text = "Enemy";
-            Speech.Position = Position + new Vector2(25, -25);
+            Speech.LocalPosition = LocalPosition + new Vector2(25, -25);
 
             //create a vector that stores the move input
-            Vector2 moveDirection = ( _target.Position - Position).Normalized;
+            Vector2 moveDirection = ( _target.LocalPosition - LocalPosition).Normalized;
 
             Velocity = moveDirection * Speed * deltaTime;
 
             if (GetTargetInsight())
-                Position += Velocity;
+                LocalPosition += Velocity;
 
             base.Update(deltaTime);
         }
 
         public bool GetTargetInsight()
         {
-            Vector2 directionOfTarget = ( _target.Position - Position).Normalized;
-            float distanceToTarget = Vector2.Distance(_target.Position, Position);
+            Vector2 directionOfTarget = ( _target.LocalPosition - LocalPosition).Normalized;
+            float distanceToTarget = Vector2.Distance(_target.LocalPosition, LocalPosition);
 
             float dotProduct = Vector2.DotProduct(directionOfTarget, Forward);
 

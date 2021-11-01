@@ -11,16 +11,17 @@ namespace MathForGames
     {
         
         private string _name;
-        private Vector2 _position;
         private bool _started;
         private Vector2 _forward = new Vector2(1,0);
         public Collider _collider;
-        private Matrix3 _transform = Matrix3.Identity;
+        private Matrix3 _globalTransform = Matrix3.Identity;
+        private Matrix3 _localTransform = Matrix3.Identity;
         private Matrix3 _translation = Matrix3.Identity;
         private Matrix3 _rotation = Matrix3.Identity;
         private Matrix3 _scale = Matrix3.Identity;
         private Sprite _sprite;
-
+        private Actor[] _children = new Actor[0];
+        private Actor _parent;
 
         /// <summary>
         /// True if the start function has been called for this actor.
@@ -39,8 +40,11 @@ namespace MathForGames
 
         public Vector2 Forward
         {
-            get { return _forward; }
-            set { _forward = value; }
+            get { return new Vector2(_rotation.M00, _rotation.M10); }
+            set {
+                Vector2 point = value.Normalized + LocalPosition;
+                LookAt(point);
+            }
         }
 
         public Sprite Sprite
@@ -49,13 +53,38 @@ namespace MathForGames
             set { _sprite = value; }
         }
 
-        public Vector2 Position
+        public Vector2 LocalPosition
         {
-            get { return new Vector2(_transform.M02, _transform.M12);  }
+            get { return new Vector2(_localTransform.M02, _localTransform.M12);  }
             set
             {
                 SetTranslation(value.x, value.y);
             }
+        }
+
+        public Vector2 WorldPosition
+        {
+            get; set;
+        }
+
+        public Matrix3 GlobalTransform
+        {
+            get; set;
+        }
+
+        public Matrix3 LocalTransform
+        {
+            get; set;
+        }
+
+        public Actor Parent
+        {
+            get; set;
+        }
+
+        public Actor[] Children
+        {
+            get; set;
         }
 
             public Vector2 Size
@@ -63,17 +92,33 @@ namespace MathForGames
             get { return new Vector2(_scale.M00, _scale.M11);  }
             set { SetScale(value.x, value.y); }
         }
+
         //X position, Y position, Name, sprite
         public Actor( float x, float y, string name = "Arthurd", string path = "") :
             this( new Vector2 { x = x, y = y }, name, path) {}
 
         public Actor(Vector2 position, string name = "Arthurd", string path = "")
         {
-            Position = position;
+            LocalPosition = position;
             _name = name;
 
             if (path != "")
                 _sprite = new Sprite(path);
+        }
+
+        public void UpdateTransforms()
+        {
+
+        }
+
+        public void AddChild(Actor child)
+        {
+
+        }
+
+        public bool RemoveChild(Actor child)
+        {
+            return true;
         }
 
         public virtual void OnCollision(Actor actor)
@@ -88,7 +133,7 @@ namespace MathForGames
 
         public virtual void Update(float deltaTime)
         {
-            _transform = _translation * _rotation * _scale;
+            _localTransform = _translation * _rotation * _scale;
             //Console.WriteLine(_name = "Jake " + Position.x + ", " + Position.y);
            
         }
@@ -96,7 +141,7 @@ namespace MathForGames
         public virtual void Draw()
         {
             if (_sprite != null)
-                _sprite.Draw(_transform);
+                _sprite.Draw(_localTransform);
         }
 
         public virtual void End()
@@ -135,7 +180,7 @@ namespace MathForGames
         /// <param name="translationY">The amount to move on the y</param>
         public void Translate(float translationX, float translationY)
         {
-            _translation = Matrix3.CreateTranslation(translationX, translationY);
+            _translation *= Matrix3.CreateTranslation(translationX, translationY);
         }
 
         /// <summary>
@@ -153,7 +198,7 @@ namespace MathForGames
         /// <param name="radians">The angle in radians to turn.</param>
         public void Rotate(float radians)
         {
-            _rotation = Matrix3.CreateRotation(radians);
+            _rotation *= Matrix3.CreateRotation(radians);
         }
 
         /// <summary>
@@ -174,6 +219,36 @@ namespace MathForGames
         public void Scale(float x, float y)
         {
             _scale *= Matrix3.CreateScale(x, y);
+        }
+
+        /// <summary>
+        /// Rotates the actyor to face teh given position
+        /// </summary>
+        /// <param name="position">The position the actor should be looking towards</param>
+        public void LookAt(Vector2 position)
+        {
+            //Find the directyion that the actor should look in
+            Vector2 direction = (position - LocalPosition).Normalized;
+
+            //Use the dot product to find the angle the actor needs to rotate
+            float dotProd = Vector2.DotProduct(direction, Forward);
+
+            if (dotProd > 1)
+                dotProd = 1;
+
+            float angle = (float)Math.Acos(dotProd);
+
+            //Find a perindicular vector to the direction
+            Vector2 perpDirection = new Vector2(direction.y, -direction.x);
+
+            //Find the dot product of the perpindicular vector and the current forward
+            float perpDot = Vector2.DotProduct(perpDirection, Forward);
+
+            //If the result isn't 0, use it to change the sign of the angle to be either positive or negative
+            if (perpDot != 0)
+                angle *= perpDot / Math.Abs(perpDot);
+
+            Rotate(angle);
         }
     }
 }

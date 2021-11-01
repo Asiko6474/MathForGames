@@ -67,7 +67,8 @@ namespace MathForGames
 
             //Sets the size of the sprite, X by Y.
             player.SetScale(50, 50);
-            player.SetTranslation(200, 200);
+            player.SetTranslation(300, 300);
+            
             //player collider but for boxes
             AABBCollider PlayerBoxCollider = new AABBCollider(36, 36, player);
             player.Collider = PlayerBoxCollider;
@@ -75,11 +76,13 @@ namespace MathForGames
             //X position, Y position, speed, Max ViewAngle, Max sight distance, Target, Name, Sprite.
             Tagger tagger = new Tagger( 50, 200, 100, 100, 100, player, "Actor", "Images/tagger.png");
             tagger.SetScale(50, 50);
+            tagger.SetTranslation(300, 300);
             //Collider but for circles
             CircleCollider enemyCollider = new CircleCollider(15, tagger);
             //Collider but for boxes
             AABBCollider enemyBoxCollider = new AABBCollider(32, 32, tagger);
             tagger.Collider = enemyBoxCollider;
+            tagger.LookAt(new Vector2(700, 900));
            
             
 

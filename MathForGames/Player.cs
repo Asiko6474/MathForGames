@@ -33,7 +33,7 @@ namespace MathForGames
         public override void Update(float deltaTime)
         {
             Speech.Text = "Player";
-            Speech.Position = Position + new Vector2(10, -25);
+            Speech.LocalPosition = LocalPosition + new Vector2(10, -25);
             //Console.WriteLine("Player " + Position.x + ", " + Position.y);
             
             //Allows the player to move left and right, with A being left and D being right.
@@ -45,13 +45,18 @@ namespace MathForGames
             int BulletDirectionX = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_EIGHT)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_TWO));
             //Allows the player to shoot left and right, with four being left and six being down.
             int BulletDirectionY = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_FOUR)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_SIX));
-
+            
             //create a vector that stores the move input
             Vector2 moveDirection = new Vector2(xDirection, yDirection);
 
             Velocity = moveDirection.Normalized * Speed * deltaTime;
 
-            Position += Velocity; 
+            if (Velocity.Magnitude > 0)
+            Forward = Velocity.Normalized;
+
+            LocalPosition += Velocity;
+
+            base.Update(deltaTime);
         }
         
 
