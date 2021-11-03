@@ -60,16 +60,19 @@ namespace MathForGames
             Scene scene = new Scene();
 
             Actor sun = new Actor(400, 225, "pepsiSun", "images/PepsiSun.png");
-            Actor planet = new Actor(300, 200, "planet", "images/PepsiPlanet.png");
+            AABBCollider SunBoxCollider = new AABBCollider(36, 36, sun);
+            Actor planet = new Actor(0.4f, 1, "planet", "images/PepsiPlanet.png");
+            AABBCollider PlanetBoxCollider = new AABBCollider(36, 36, planet);
 
 
             sun.SetScale(75, 75);
             scene.AddActor(sun);
+            sun.Collider = SunBoxCollider;
 
             planet.SetScale(0.4f, 0.4f);
             sun.AddChild(planet);
             scene.AddActor(planet);
-
+            planet.Collider = PlanetBoxCollider;
 
             ////X position, Y position, speed, Name, Sprite.
             //Player player = new Player(100, 100, 150, "Player", "Images/PepsiSun.png");

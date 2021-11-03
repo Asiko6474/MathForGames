@@ -62,12 +62,29 @@ namespace MathForGames
             }
         }
 
+        /// <summary>
+        /// The position of this actor in the world 
+        /// </summary>
         public Vector2 WorldPosition
         {
+            //Return the global transform's T column
             get { return new Vector2(GlobalTransform.M02, GlobalTransform.M12); }
             set
             {
-                SetTranslation(value.x, value.y);
+                //If the actor has a parent...
+                if (Parent != null)
+                {
+                    //...convert the world cooridinates into local cooridinates and translate the actor
+                    float xOffset =(value.x - Parent.WorldPosition.x) / new Vector2(_globalTransform.M00, _globalTransform.M10).Magnitude;
+                    float yOffset = (value.y - Parent.WorldPosition.y) / new Vector2(_globalTransform.M10, _globalTransform.M11).Magnitude;
+                    SetTranslation(xOffset, yOffset);
+                }
+                //If this actor doesn't have a parent
+                else
+                {
+                    //set local position to be the given value
+                    LocalPosition = value;
+                }
             }
         }
 
@@ -99,7 +116,12 @@ namespace MathForGames
 
             public Vector2 Size
         {
-            get { return new Vector2(_scale.M00, _scale.M11);  }
+            get 
+            {
+                float xScale = new Vector2(_scale.M00, _scale.M10).Magnitude;
+                float yScale = new Vector2(_scale.M01, _scale.M11).Magnitude;
+                return new Vector2(xScale, yScale);  
+            }
             set { SetScale(value.x, value.y); }
         }
 
@@ -118,12 +140,13 @@ namespace MathForGames
 
         public void UpdateTransforms()
         {
+            _localTransform = _translation * _rotation * _scale;
             if (Parent != null)
             {
-                _globalTransform = _parent._globalTransform * _localTransform;
+                GlobalTransform = Parent.GlobalTransform * LocalTransform;
             }
-
-                _globalTransform = _localTransform;
+            else
+                GlobalTransform = LocalTransform;
         }
 
         public void AddChild(Actor child)
@@ -141,6 +164,9 @@ namespace MathForGames
 
             //set the old array to be the new aray
             _children = tempArray;
+
+            //Set the parent of the actor
+            child.Parent = this;
         }
 
         public bool RemoveChild(Actor child)
@@ -172,7 +198,11 @@ namespace MathForGames
                 //...set the old array to be the new array
                 _children = tempArray;
 
+            //Set the parent to be nothing
+            child.Parent = null;
+
             return actorRemoved;
+         
         }
 
         public virtual void OnCollision(Actor actor)
@@ -188,14 +218,14 @@ namespace MathForGames
         public virtual void Update(float deltaTime)
         {
             _localTransform = _translation * _rotation * _scale;
-            //Console.WriteLine(_name = "Jake " + Position.x + ", " + Position.y);
-           UpdateTransforms();
+            //Console.WriteLine(_name = "Jake " + WorldPosition.x + ", " + WorldPosition.y);
+            UpdateTransforms();
         }
 
         public virtual void Draw()
         {
             if (_sprite != null)
-                _sprite.Draw(_localTransform);
+                _sprite.Draw(GlobalTransform);
         }
 
         public virtual void End()
