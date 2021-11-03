@@ -59,15 +59,16 @@ namespace MathForGames
 
             Scene scene = new Scene();
 
-            Actor sun = new Actor(400, 250, "pepsiSun", "images/PepsiSun.png");
-            Actor planet = new Actor(1, 1, "planet", "images/PepsiPlanet.png");
+            Actor sun = new Actor(400, 225, "pepsiSun", "images/PepsiSun.png");
+            Actor planet = new Actor(300, 200, "planet", "images/PepsiPlanet.png");
 
 
             sun.SetScale(75, 75);
             scene.AddActor(sun);
 
-            planet.SetScale(1, 1);
+            planet.SetScale(0.4f, 0.4f);
             sun.AddChild(planet);
+            scene.AddActor(planet);
 
 
             ////X position, Y position, speed, Name, Sprite.
@@ -108,8 +109,8 @@ namespace MathForGames
             //scene.AddUIElement(taggerText);
             //scene.AddActor(tagger);
             //scene.AddActor(player);
-            //_currentSceneIndex = AddScene(scene);
-            //_scenes[_currentSceneIndex].Start();
+            _currentSceneIndex = AddScene(scene);
+            _scenes[_currentSceneIndex].Start();
         }
 
         /// <summary>
