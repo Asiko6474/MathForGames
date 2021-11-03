@@ -59,45 +59,57 @@ namespace MathForGames
 
             Scene scene = new Scene();
 
-            //X position, Y position, speed, Name, Sprite.
-            Player player = new Player(100, 100, 150, "Player", "Images/player.png");
+            Actor sun = new Actor(400, 250, "pepsiSun", "images/PepsiSun.png");
+            Actor planet = new Actor(1, 1, "planet", "images/PepsiPlanet.png");
 
-            //player collider but for circles
-            CircleCollider PlayerCollider = new CircleCollider(15, player);
 
-            //Sets the size of the sprite, X by Y.
-            player.SetScale(50, 50);
-            player.SetTranslation(300, 300);
-            
-            //player collider but for boxes
-            AABBCollider PlayerBoxCollider = new AABBCollider(36, 36, player);
-            player.Collider = PlayerBoxCollider;
+            sun.SetScale(75, 75);
+            scene.AddActor(sun);
 
-            //X position, Y position, speed, Max ViewAngle, Max sight distance, Target, Name, Sprite.
-            Tagger tagger = new Tagger( 50, 200, 100, 100, 100, player, "Actor", "Images/tagger.png");
-            tagger.SetScale(50, 50);
-            tagger.SetTranslation(300, 300);
-            //Collider but for circles
-            CircleCollider enemyCollider = new CircleCollider(15, tagger);
-            //Collider but for boxes
-            AABBCollider enemyBoxCollider = new AABBCollider(32, 32, tagger);
-            tagger.Collider = enemyBoxCollider;
-            tagger.LookAt(new Vector2(700, 900));
-           
-            
+            planet.SetScale(1, 1);
+            sun.AddChild(planet);
 
-            // x position, y position, name, color, width, height, fontsize, text
-            UIText taggerText = new UIText(50, 20, "test", Color.DARKGREEN, 70, 70, 15, "I should not be able to see this text");
-            UIText playerText = new UIText(50, 20, "test", Color.DARKGREEN, 70, 70, 15, "I should not be able to see this text");
-            tagger.Speech = taggerText;
-            player.Speech = playerText;
 
-            scene.AddUIElement(playerText);
-            scene.AddUIElement(taggerText);
-            scene.AddActor(tagger);
-            scene.AddActor(player);
-            _currentSceneIndex = AddScene(scene);
-            _scenes[_currentSceneIndex].Start();
+            ////X position, Y position, speed, Name, Sprite.
+            //Player player = new Player(100, 100, 150, "Player", "Images/PepsiSun.png");
+
+            ////player collider but for circles
+            //CircleCollider PlayerCollider = new CircleCollider(15, player);
+
+            ////Sets the size of the sprite, X by Y.
+            //player.SetScale(75, 75);
+            //player.SetTranslation(300, 300);
+
+            ////player collider but for boxes
+            //AABBCollider PlayerBoxCollider = new AABBCollider(36, 36, player);
+            //player.Collider = PlayerBoxCollider;
+
+            ////X position, Y position, speed, Max ViewAngle, Max sight distance, Target, Name, Sprite.
+            //Tagger tagger = new Tagger(50, 200, 100, 100, 100, player, "Actor", "Images/PepsiPlanet.png");
+            //tagger.SetScale(50, 50);
+            //tagger.SetTranslation(300, 300);
+            ////Collider but for circles
+            //CircleCollider enemyCollider = new CircleCollider(15, tagger);
+            ////Collider but for boxes
+            //AABBCollider enemyBoxCollider = new AABBCollider(32, 32, tagger);
+            //tagger.Collider = enemyBoxCollider;
+            //tagger.LookAt(new Vector2(700, 900));
+
+
+
+            //// x position, y position, name, color, width, height, fontsize, text
+            //UIText taggerText = new UIText(50, 20, "test", Color.DARKGREEN, 70, 70, 15, "I should not be able to see this text");
+            //UIText playerText = new UIText(50, 20, "test", Color.DARKGREEN, 70, 70, 15, "I should not be able to see this text");
+            //tagger.Speech = taggerText;
+            //player.Speech = playerText;
+
+
+            //scene.AddUIElement(playerText);
+            //scene.AddUIElement(taggerText);
+            //scene.AddActor(tagger);
+            //scene.AddActor(player);
+            //_currentSceneIndex = AddScene(scene);
+            //_scenes[_currentSceneIndex].Start();
         }
 
         /// <summary>

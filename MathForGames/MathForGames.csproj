@@ -6,11 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\PepsiPlanet.png" />
+    <None Remove="Images\PepsiSun.png" />
     <None Remove="player.png" />
     <None Remove="tagger.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Images\PepsiPlanet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\PepsiSun.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\player.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

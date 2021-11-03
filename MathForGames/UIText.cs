@@ -28,7 +28,7 @@ namespace MathForGames
 
         public override void Draw()
         {
-            //Create a new rectablge that will act as trhe borders of the text box
+            //Create a new rectangle that will act as the borders of the text box
             Rectangle textbox = new Rectangle(LocalPosition.x, LocalPosition.y, Width, Height);
 
             //Draw the textbox

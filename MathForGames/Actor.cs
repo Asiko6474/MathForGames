@@ -55,7 +55,7 @@ namespace MathForGames
 
         public Vector2 LocalPosition
         {
-            get { return new Vector2(_localTransform.M02, _localTransform.M12);  }
+            get { return new Vector2(LocalTransform.M02, LocalTransform.M12);  }
             set
             {
                 SetTranslation(value.x, value.y);
@@ -64,27 +64,37 @@ namespace MathForGames
 
         public Vector2 WorldPosition
         {
-            get; set;
+            get { return new Vector2(GlobalTransform.M02, GlobalTransform.M12); }
+            set
+            {
+                SetTranslation(value.x, value.y);
+            }
         }
 
         public Matrix3 GlobalTransform
         {
-            get; set;
+            get { return _globalTransform; }
+            set
+            {
+                _globalTransform = value;
+            }
         }
 
         public Matrix3 LocalTransform
         {
-            get; set;
+            get { return _localTransform; }
+            set { _localTransform = value; }
         }
 
         public Actor Parent
         {
-            get; set;
+            get { return _parent; }
+            set { _parent = value; }
         }
 
         public Actor[] Children
         {
-            get; set;
+            get { return _children; }
         }
 
             public Vector2 Size
@@ -108,17 +118,61 @@ namespace MathForGames
 
         public void UpdateTransforms()
         {
+            if (Parent != null)
+            {
+                _globalTransform = _parent._globalTransform * _localTransform;
+            }
 
+                _globalTransform = _localTransform;
         }
 
         public void AddChild(Actor child)
         {
+            //Creat a temp array larger than the original
+            Actor[] tempArray = new Actor[_children.Length + 1];
 
+            //Copy all values from the original array into the temp array
+            for (int i = 0; i < _children.Length; i++)
+            {
+                tempArray[i] = _children[i];
+            }
+            //Add the new Actor to the end of the new Array
+            tempArray[_children.Length] = child;
+
+            //set the old array to be the new aray
+            _children = tempArray;
         }
 
         public bool RemoveChild(Actor child)
         {
-            return true;
+            //create a variable to store if the removal was successful
+            bool actorRemoved = false;
+
+            //Create a new array that is smaller than the original
+            Actor[] tempArray = new Actor[_children.Length - 1];
+
+            //Copy all values except the actor we don't want into the new array
+            int j = 0;
+            for (int i = 0; i < tempArray.Length; i++)
+            {
+                //if the actor taht the loop is on is not the one to remove...
+                if (_children[i] != child)
+                {
+                    //...add the actor into the new array and increment the temp array counter
+                    tempArray[j] = _children[j];
+                    j++;
+                }
+                //otherwise if this actor is the one to remove...
+                else
+                    //...set actorRemoved to be true
+                    actorRemoved = true;
+            }
+            //if the actor removal was successful...
+            if (actorRemoved == true)
+                //...set the old array to be the new array
+                _children = tempArray;
+
+            return actorRemoved;
         }
 
         public virtual void OnCollision(Actor actor)
@@ -135,7 +189,7 @@ namespace MathForGames
         {
             _localTransform = _translation * _rotation * _scale;
             //Console.WriteLine(_name = "Jake " + Position.x + ", " + Position.y);
-           
+           UpdateTransforms();
         }
 
         public virtual void Draw()
