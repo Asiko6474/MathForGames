@@ -53,7 +53,7 @@ namespace MathLibrary
         {
             return new Vector3();
         }
-        public static Vector3 operator *(Vector3 lhs, Vector3 rhs)
+        public static Vector3 operator *(Vector3 lhs, float rhs)
         {
             return new Vector3();
         }

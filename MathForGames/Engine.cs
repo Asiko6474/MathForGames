@@ -72,18 +72,18 @@ namespace MathForGames
 
             Scene scene = new Scene();
 
-            Actor sun = new Actor(400, 225, "pepsiSun", "images/PepsiSun.png");
+            Player sun = new Player(0, 0, 100, "pepsiSun", Shape.SPHERE);
             AABBCollider SunBoxCollider = new AABBCollider(36, 36, sun);
-            Actor planet = new Actor(0.4f, 1, "planet", "images/PepsiPlanet.png");
+            Actor planet = new Actor(0.4f, 1, "planet", Shape.CUBE);
             AABBCollider PlanetBoxCollider = new AABBCollider(36, 36, planet);
 
 
-            sun.SetScale(75, 75);
+            sun.SetScale(75, 75, 5);
             scene.AddActor(sun);
             sun.Collider = SunBoxCollider;
 
-            planet.SetScale(0.4f, 0.4f);
-            sun.AddChild(planet);
+            planet.SetScale(10, 10, 10);
+            
             scene.AddActor(planet);
             planet.Collider = PlanetBoxCollider;
 

@@ -15,7 +15,7 @@ namespace MathForGames
         public Color FontColor;
 
         //x position, y position, name, color, width, height, fontsize, text
-        public UIText(float x, float y, string name, Color color, int width, int height, int fontsize, string text = "") : base(x, y, name, "")
+        public UIText(float x, float y, string name, Color color, int width, int height, int fontsize, string text = "") : base(x, y, name)
         {
             Text = text;
             Width = width;
