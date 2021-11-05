@@ -40,11 +40,6 @@ namespace MathForGames
             int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_D));
             //Allows the player to move up and down, with W being up and S being down.
             int zDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
-
-            //Allows the player to shoot up and down, with eight being up and two being down. The idea of this is to match the direction of shooting with the numpad.
-            int BulletDirectionX = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_EIGHT)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_TWO));
-            //Allows the player to shoot left and right, with four being left and six being down.
-            int BulletDirectionY = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_FOUR)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_SIX));
             
             //create a vector that stores the move input
             Vector3 moveDirection = new Vector3(xDirection, 0 , zDirection);

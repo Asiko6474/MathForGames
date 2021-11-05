@@ -74,6 +74,8 @@ namespace MathForGames
 
             Player sun = new Player(0, 0, 50, "pepsiSun", Shape.SPHERE);
             sun.SetScale(1, 1, 1);
+            CircleCollider PlayerCollider = new CircleCollider(1, sun);
+            sun.Collider = PlayerCollider;
             scene.AddActor(sun);
             
 
@@ -149,7 +151,7 @@ namespace MathForGames
             Raylib.BeginDrawing();
             Raylib.BeginMode3D(_camera);
 
-            Raylib.ClearBackground(Color.DARKGREEN);
+            Raylib.ClearBackground(Color.DARKGRAY);
             Raylib.DrawGrid(50, 1);
 
             _scenes[_currentSceneIndex].Draw();

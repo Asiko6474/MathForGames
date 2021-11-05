@@ -126,7 +126,7 @@ namespace MathForGames
             set { SetScale(value.x, value.y, value.z); }
         }
 
-        //X position, Y position, Name, sprite
+        
         public Actor( float x, float y, string name = "Arthurd", Shape shape = Shape.CUBE) :
             this( new Vector3 { x = x, y = y }, name, shape) {}
 
@@ -134,6 +134,7 @@ namespace MathForGames
         {
             LocalPosition = position;
             _name = name;
+            _shape = shape;
 
            
         }
@@ -217,9 +218,9 @@ namespace MathForGames
 
         public virtual void Update(float deltaTime)
         {
-            _localTransform = _translation * _rotation * _scale;
-            //Console.WriteLine(_name = "Jake " + WorldPosition.x + ", " + WorldPosition.y);
             UpdateTransforms();
+            Console.WriteLine(_name = "Current Position: " + WorldPosition.x + ", " + WorldPosition.y);
+            
         }
 
         public virtual void Draw()
@@ -228,14 +229,10 @@ namespace MathForGames
             switch (_shape)
             {
                 case Shape.CUBE:
-                    float SizeX = new Vector3(_scale.M00, _scale.M10, _scale.M20).Magnitude;
-                    float SizeY = new Vector3(_scale.M01, _scale.M11, _scale.M21).Magnitude;
-                    float SizeZ = new Vector3(_scale.M02, _scale.M12, _scale.M22).Magnitude;
-                    Raylib.DrawCube(position, SizeX, SizeY, SizeZ, Color.BLUE);
+                    Raylib.DrawCube(position, Size.x, Size.y, Size.z, Color.BLUE);
                     break;
                 case Shape.SPHERE:
-                    SizeX = 0;
-                    Raylib.DrawSphere(position, SizeX, Color.BLUE);
+                    Raylib.DrawSphere(position, Size.x, Color.BLUE);
                         break;
 
             }
