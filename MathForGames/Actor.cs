@@ -329,6 +329,15 @@ namespace MathForGames
         /// <param name="position">The position the actor should be looking towards</param>
         public void LookAt(Vector3 position)
         {
+            Vector3 direction = (position - WorldPosition).Normalized;
+
+            if (direction.Magnitude == 0)
+                direction = new Vector3(0, 0, 1);
+
+            Vector3 allignAxis = new Vector3(0, 1, 0);
+
+            Vector3 newYAxis = new Vector3(0, 1, 0);
+            Vector3 newXAxis = new Vector3(1, 0, 0);
             ////Find the directyion that the actor should look in
             //Vector2 direction = (position - LocalPosition).Normalized;
 
