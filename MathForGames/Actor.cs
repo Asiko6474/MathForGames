@@ -26,8 +26,12 @@ namespace MathForGames
         private Shape _shape;
         private Actor[] _children = new Actor[0];
         private Actor _parent;
+        private Color _color;
 
-
+        public Color ShapeColor
+        {
+            get { return _color; }
+        }
         /// <summary>
         /// True if the start function has been called for this actor.
         /// </summary>
@@ -219,23 +223,27 @@ namespace MathForGames
         public virtual void Update(float deltaTime)
         {
             UpdateTransforms();
-            Console.WriteLine(_name = "Current Position: " + WorldPosition.x + ", " + WorldPosition.y);
+            Console.WriteLine(_name = "Current Position: " + WorldPosition.x + ", " + WorldPosition.z);
             
         }
 
         public virtual void Draw()
         {
+            System.Numerics.Vector3 startPos = new System.Numerics.Vector3(WorldPosition.x, WorldPosition.y, WorldPosition.z);
+            System.Numerics.Vector3 endPos = new System.Numerics.Vector3(WorldPosition.x + Forward.x * 5, WorldPosition.y * Forward.y * 5, WorldPosition.z + Forward.z * 5);
+
             System.Numerics.Vector3 position = new System.Numerics.Vector3(WorldPosition.x, WorldPosition.y, WorldPosition.z);
             switch (_shape)
             {
                 case Shape.CUBE:
-                    Raylib.DrawCube(position, Size.x, Size.y, Size.z, Color.BLUE);
+                    Raylib.DrawCube(position, Size.x, Size.y, Size.z, ShapeColor);
                     break;
                 case Shape.SPHERE:
-                    Raylib.DrawSphere(position, Size.x, Color.BLUE);
+                    Raylib.DrawSphere(position, Size.x, ShapeColor);
                         break;
 
             }
+            Raylib.DrawLine3D(startPos, endPos, Color.GREEN);
         }
 
         public virtual void End()
@@ -329,46 +337,70 @@ namespace MathForGames
         /// <param name="position">The position the actor should be looking towards</param>
         public void LookAt(Vector3 position)
         {
+            //Get the direction for the actor to look in
             Vector3 direction = (position - WorldPosition).Normalized;
 
+            //Of the direction has a length of zero
             if (direction.Magnitude == 0)
+                //Set it to be the default forward
                 direction = new Vector3(0, 0, 1);
 
+            //Create a vector that points direction upwards
             Vector3 allignAxis = new Vector3(0, 1, 0);
 
+            //Creates two new Vectors that will be the new x and y axis
             Vector3 newYAxis = new Vector3(0, 1, 0);
             Vector3 newXAxis = new Vector3(1, 0, 0);
 
+            //If the direction vector is parallel to the alignAxis vector
             if (Math.Abs(direction.y) > 0 && direction.x == 0 && direction.z == 0)
             {
+                //Set the allignAxis vector to point to the right
                 allignAxis = new Vector3(1, 0, 0);
 
-                newYAxis = new Vector3.CrossProduct(direction, allignAxis);
+                //Get the cross product of the drection and the right to find the Y axis
+                newYAxis = Vector3.CrossProduct(direction, allignAxis);
+
+                //Normalize the new Y axis to prevent the matrix from being scaled
+                newYAxis.Normalize();
+
+                //Get the cross product of the new y axis and the direction to find the new x axis
+                newXAxis = Vector3.CrossProduct(newYAxis, direction);
+                //Normalize the new x axis to prevent the matric from being scaled 
+                newXAxis.Normalize();
+            }
+            //If the direction vector is not parallel
+            else
+            {
+                //Set the align axis to point to the right 
+                newXAxis = Vector3.CrossProduct(allignAxis, direction);
+
+                //Normalize the newXaxis to prevent our matric from being scaled
+                newXAxis.Normalize();
+
+                //Get the cross product of the alignAxis and the direction vector
+                newYAxis = Vector3.CrossProduct(direction, newXAxis);
+                
+                //Normalize the newYaxis to prevent the matrix from being scaled
                 newYAxis.Normalize();
             }
 
-            ////Find the directyion that the actor should look in
-            //Vector2 direction = (position - LocalPosition).Normalized;
+            //Create a new matrix with the new axis.
+            _rotation = new Matrix4(newXAxis.x, newYAxis.x, direction.x, 0,
+                                    newXAxis.y, newYAxis.y, direction.y, 0,
+                                    newXAxis.z, newYAxis.z, direction.z, 0,
+                                    0, 0, 0, 1);
 
-            ////Use the dot product to find the angle the actor needs to rotate
-            //float dotProd = Vector2.DotProduct(direction, Forward);
-
-            //if (dotProd > 1)
-            //    dotProd = 1;
-
-            //float angle = (float)Math.Acos(dotProd);
-
-            ////Find a perindicular vector to the direction
-            //Vector2 perpDirection = new Vector3(direction.y, -direction.x);
-
-            ////Find the dot product of the perpindicular vector and the current forward
-            //float perpDot = Vector2.DotProduct(perpDirection, Forward);
-
-            ////If the result isn't 0, use it to change the sign of the angle to be either positive or negative
-            //if (perpDot != 0)
-            //    angle *= perpDot / Math.Abs(perpDot);
-
-            //Rotate(angle);
         }
+
+        public void SetColor(Color color)
+        {
+            _color = color;
+        }
+
+        //public void SetColor(Vector3 ColorValue)
+        //{
+        //    _color = new Color((int)ColorValue.x, (int)ColorValue.y, (int)ColorValue.z);
+        //}
     }
 }
