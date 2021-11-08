@@ -10,7 +10,7 @@ namespace MathForGames
     {
         public UIText Speech;
         private float _speed;
-        private Vector3 _velocity;
+        private Vector2 _velocity;
 
         public float Speed
         {
@@ -18,14 +18,14 @@ namespace MathForGames
             set { _speed = value; }
         }
 
-        public Vector3 Velocity
+        public Vector2 Velocity
         {
             get { return _velocity; }
             set { _velocity = value; }
         }
 
-        public Player(float x, float y, float speed, string name = "Default", Shape shape = Shape.CUBE ) 
-            : base( x, y, name, shape)
+        public Player(float x, float y, float speed, string name = "Default", string path = "" ) 
+            : base( x, y, name, path)
         {
             _speed = speed;
         }
@@ -39,10 +39,10 @@ namespace MathForGames
             //Allows the player to move left and right, with A being left and D being right.
             int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_D));
             //Allows the player to move up and down, with W being up and S being down.
-            int zDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
+            int yDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
             
             //create a vector that stores the move input
-            Vector3 moveDirection = new Vector3(xDirection, 0 , zDirection);
+            Vector2 moveDirection = new Vector2(xDirection, yDirection);
 
             Velocity = moveDirection.Normalized * Speed * deltaTime;
 

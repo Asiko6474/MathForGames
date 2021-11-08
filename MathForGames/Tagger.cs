@@ -10,7 +10,7 @@ namespace MathForGames
     class Tagger : Actor
     {
         private float _speed;
-        private Vector3 _velocity;
+        private Vector2 _velocity;
         private Actor _target;
         private float _maxSightDistance;
         public UIText SpeechText;
@@ -23,21 +23,21 @@ namespace MathForGames
             set { _speed = value; }
         }
 
-        public Vector3 Velocity
+        public Vector2 Velocity
         {
             get { return _velocity; }
             set { _velocity = value; }
         }
 
-        public Tagger(float x, float y, float speed, float maxSightDistance, float maxViewAngle,
-            Actor target, string name = "Actor", Shape shape = Shape.CUBE)
-            : base(x, y, name, shape)
+        public Tagger(float x, float y, float speed, float maxViewAngle, float maxSightDistance, Actor target, string name = "Tagger", string path = "")
+           : base(x, y, name, path)
         {
-            _speed = speed;
             _target = target;
+            _speed = speed;
             _maxSightDistance = maxSightDistance;
             _maxViewAngle = maxViewAngle;
         }
+
 
 
         public override void Start()
@@ -48,7 +48,7 @@ namespace MathForGames
         public override void Update(float deltaTime)
         {
             //Create a vector that stores the move input
-            Vector3 moveDirection = (_target.LocalPosition - LocalPosition).Normalized;
+            Vector2 moveDirection = (_target.LocalPosition - LocalPosition).Normalized;
 
             Velocity = moveDirection * Speed * deltaTime;
 
@@ -60,10 +60,10 @@ namespace MathForGames
 
         public bool GetTargetInSight()
         {
-            Vector3 directionOfTarget = (_target.LocalPosition - LocalPosition).Normalized;
-            float distanceToTarget = Vector3.Distance(_target.LocalPosition, LocalPosition);
+            Vector2 directionOfTarget = (_target.LocalPosition - LocalPosition).Normalized;
+            float distanceToTarget = Vector2.Distance(_target.LocalPosition, LocalPosition);
 
-            float dotProduct = Vector3.DotProduct(directionOfTarget, Forward);
+            float dotProduct = Vector2.DotProduct(directionOfTarget, Forward);
 
             return MathF.Acos(dotProduct) < _maxViewAngle && distanceToTarget < _maxSightDistance;
         }

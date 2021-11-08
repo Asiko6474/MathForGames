@@ -37,19 +37,19 @@ namespace UnitTestProject
 
         bool compare(Vector3 a, Vector3 b, float tolerance = DEFAULT_TOLERANCE)
         {
-            if (Math.Abs(a.X - b.X) > tolerance ||
-                Math.Abs(a.Y - b.Y) > tolerance ||
-                Math.Abs(a.Z - b.Z) > tolerance)
+            if (Math.Abs(a.x - b.x) > tolerance ||
+                Math.Abs(a.y - b.y) > tolerance ||
+                Math.Abs(a.z - b.z) > tolerance)
                 return false;
             return true;
         }
 
         bool compare(Vector4 a, Vector4 b, float tolerance = DEFAULT_TOLERANCE)
         {
-            if (Math.Abs(a.X - b.X) > tolerance ||
-                Math.Abs(a.Y - b.Y) > tolerance ||
-                Math.Abs(a.Z - b.Z) > tolerance ||
-                Math.Abs(a.W - b.W) > tolerance)
+            if (Math.Abs(a.x - b.x) > tolerance ||
+                Math.Abs(a.y - b.y) > tolerance ||
+                Math.Abs(a.z - b.z) > tolerance ||
+                Math.Abs(a.w - b.w) > tolerance)
                 return false;
             return true;
         }
