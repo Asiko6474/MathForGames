@@ -48,6 +48,13 @@ namespace MathLibrary
             return (rhs - lhs).Magnitude;
         }
 
+        public static float CrossProduct(Vector3 A, Vector3 B)
+        {
+            return new Vector3(A.x * B.y = A.y * B.z - A.z * B.z,
+                                           A.z * B.x - A.x * B.x,
+                                           A.x * B.y - A.y * B.x);
+        }
+
         public static Vector3 operator -(Vector3 lhs, Vector3 rhs)
         {
             return new Vector3 { x = lhs.x - rhs.x, y = lhs.y - rhs.y, z = lhs.z - rhs.z };

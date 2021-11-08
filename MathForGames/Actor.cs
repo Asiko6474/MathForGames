@@ -338,6 +338,15 @@ namespace MathForGames
 
             Vector3 newYAxis = new Vector3(0, 1, 0);
             Vector3 newXAxis = new Vector3(1, 0, 0);
+
+            if (Math.Abs(direction.y) > 0 && direction.x == 0 && direction.z == 0)
+            {
+                allignAxis = new Vector3(1, 0, 0);
+
+                newYAxis = new Vector3.CrossProduct(direction, allignAxis);
+                newYAxis.Normalize();
+            }
+
             ////Find the directyion that the actor should look in
             //Vector2 direction = (position - LocalPosition).Normalized;
 
