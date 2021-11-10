@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics;
 using MathLibrary;
 using Raylib_cs;
 
@@ -11,6 +12,7 @@ namespace MathForGames
         public UIText Speech;
         private float _speed;
         private Vector2 _velocity;
+        private Stopwatch _stopwatch = new Stopwatch();
 
         public float Speed
         {
@@ -32,20 +34,25 @@ namespace MathForGames
         
         public override void Update(float deltaTime)
         {
-            //Speech.Text = "Player";
-            //Speech.LocalPosition = LocalPosition + new Vector2(10, -25);
-            //Console.WriteLine("Player " + Position.x + ", " + Position.y);
             
             //Allows the player to move left and right, with A being left and D being right.
             int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_D));
             //Allows the player to move up and down, with W being up and S being down.
             int yDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
-            
+
+            float growth = Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_X));
+
+            float Rotation = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_LEFT)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT));
+           
             //create a vector that stores the move input
             Vector2 moveDirection = new Vector2(xDirection, yDirection);
+             
 
             Velocity = moveDirection.Normalized * Speed * deltaTime;
 
+            Rotate(Rotation * deltaTime * 4);
+
+            //Scale( growth + deltaTime,  growth * deltaTime);
             LocalPosition += Velocity;
 
             base.Update(deltaTime);

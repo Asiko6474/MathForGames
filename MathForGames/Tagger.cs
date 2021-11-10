@@ -51,7 +51,7 @@ namespace MathForGames
             Vector2 moveDirection = (_target.LocalPosition - LocalPosition).Normalized;
 
             Velocity = moveDirection * Speed * deltaTime;
-
+            
             if (GetTargetInSight())
                 LocalPosition += Velocity;
 

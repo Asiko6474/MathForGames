@@ -146,6 +146,7 @@ namespace MathForGames
 
         public void UpdateTransforms()
         {
+            
             _localTransform = _translation * _rotation * _scale;
             if (Parent != null)
             {
@@ -308,7 +309,7 @@ namespace MathForGames
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public void Scale(float x, float y, float z)
+        public void Scale(float x, float y)
         {
             _scale *= Matrix3.CreateScale(x, y);
         }

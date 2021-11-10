@@ -41,6 +41,7 @@ namespace MathForGames
                 
                 //Set the last time recorded to be the current time
                 lastTime = currentTime;
+               
                 }
 
             // call end for the entire application.
@@ -62,18 +63,20 @@ namespace MathForGames
             //X position, Y position, speed, Name, Sprite.
             Player sun = new Player(100, 100, 150, "Player", "Images/PepsiSun.png");
             AABBCollider SunBoxCollider = new AABBCollider(36, 36, sun);
-            Actor planet = new Actor(0.4f, 1, "planet", "images/PepsiPlanet.png");
+            Actor planet = new Actor(0, 0.6f, "planet", "images/PepsiPlanet.png");
             AABBCollider PlanetBoxCollider = new AABBCollider(36, 36, planet);
 
 
             sun.SetScale(75, 75);
+            sun.SetTranslation(400, 225);
             scene.AddActor(sun);
             sun.Collider = SunBoxCollider;
-
-            planet.SetScale(0.4f, 0.4f);
+            
+            planet.SetScale(0.6f, 0.6f);
             sun.AddChild(planet);
             scene.AddActor(planet);
             planet.Collider = PlanetBoxCollider;
+            
 
             _currentSceneIndex = AddScene(scene);
             _scenes[_currentSceneIndex].Start();
@@ -86,7 +89,7 @@ namespace MathForGames
         private void Update(float deltaTime)
         {
             _scenes[_currentSceneIndex].Update(deltaTime);
-
+            
             while (Console.KeyAvailable)
                 Console.ReadKey(true);
         }
