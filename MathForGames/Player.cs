@@ -57,10 +57,21 @@ namespace MathForGames
                 Speed = 200;
             }
 
-                Velocity = moveDirection.Normalized * Speed * deltaTime;
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_X))
+            {
+                Scale(growth + deltaTime, growth + deltaTime);
+            }
+
+            if (Raylib.IsKeyReleased(KeyboardKey.KEY_X))
+            {
+                Scale(growth / deltaTime, growth / deltaTime);
+            }
+            Velocity = moveDirection.Normalized * Speed * deltaTime;
 
             Rotate(Rotation * deltaTime * 4);
 
+
+            
             //Scale( growth + deltaTime,  growth * deltaTime);
             LocalPosition += Velocity;
 

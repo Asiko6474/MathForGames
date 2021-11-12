@@ -55,7 +55,7 @@ namespace MathForGames
         {
             _stopwatch.Start();
             //Create a window using raylib
-            Raylib.InitWindow(800,450, "Math For Games");
+            Raylib.InitWindow(800,450, "Pepsi for TV Game");
             Raylib.SetTargetFPS(60);
 
             Scene scene = new Scene();
