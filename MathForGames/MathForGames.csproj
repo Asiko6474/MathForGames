@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Enemy.png" />
+    <None Remove="Images\gun.png" />
     <None Remove="Images\PepsiPlanet.png" />
     <None Remove="Images\PepsiSun.png" />
     <None Remove="player.png" />
@@ -13,6 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Images\Enemy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\gun.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\PepsiPlanet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

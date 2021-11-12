@@ -46,9 +46,18 @@ namespace MathForGames
            
             //create a vector that stores the move input
             Vector2 moveDirection = new Vector2(xDirection, yDirection);
-             
 
-            Velocity = moveDirection.Normalized * Speed * deltaTime;
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT))
+            {
+                Speed = 100;
+            }
+
+            if (Raylib.IsKeyReleased(KeyboardKey.KEY_LEFT_SHIFT))
+            {
+                Speed = 200;
+            }
+
+                Velocity = moveDirection.Normalized * Speed * deltaTime;
 
             Rotate(Rotation * deltaTime * 4);
 

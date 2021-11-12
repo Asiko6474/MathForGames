@@ -61,22 +61,36 @@ namespace MathForGames
             Scene scene = new Scene();
 
             //X position, Y position, speed, Name, Sprite.
-            Player sun = new Player(100, 100, 150, "Player", "Images/PepsiSun.png");
-            AABBCollider SunBoxCollider = new AABBCollider(36, 36, sun);
-            Actor planet = new Actor(0, 0.6f, "planet", "images/PepsiPlanet.png");
-            AABBCollider PlanetBoxCollider = new AABBCollider(36, 36, planet);
+            Player pepsiPlayer = new Player(100, 100, 150, "Player", "Images/PepsiSun.png");
+            CircleCollider SunBoxCollider = new CircleCollider(10, pepsiPlayer);
+            Actor playerGun = new Actor(0, 0.6f, "planet", "images/gun.png");
+            AABBCollider PlanetBoxCollider = new AABBCollider(36, 36, playerGun);
+            //X position, Y position, speed, Max ViewAngle, Max sight distance, Target, Name, Sprite.
+            Tagger tagger = new Tagger(50, 200, 150, 300, 300, pepsiPlayer, "Actor", "Images/Enemy.png");
+            //Collider but for circles
+            CircleCollider enemyCollider = new CircleCollider(39, tagger);
+            Actor enemyGun = new Actor(0, 0.6f, "planet", "images/gun.png");
 
 
-            sun.SetScale(75, 75);
-            sun.SetTranslation(400, 225);
-            scene.AddActor(sun);
-            sun.Collider = SunBoxCollider;
+            pepsiPlayer.SetScale(75, 75);
+            pepsiPlayer.SetTranslation(400, 225);
+            scene.AddActor(pepsiPlayer);
+            pepsiPlayer.Collider = SunBoxCollider;
             
-            planet.SetScale(0.6f, 0.6f);
-            sun.AddChild(planet);
-            scene.AddActor(planet);
-            planet.Collider = PlanetBoxCollider;
-            
+            playerGun.SetScale(0.9f, 0.9f);
+            pepsiPlayer.AddChild(playerGun);
+            scene.AddActor(playerGun);
+            playerGun.SetRotation(99);
+            playerGun.Collider = PlanetBoxCollider;
+
+            scene.AddActor(tagger);
+            tagger.SetScale(75, 75);
+            tagger.Collider = enemyCollider;
+
+            enemyGun.SetScale(0.9f, 0.9f);
+            tagger.AddChild(enemyGun);
+            scene.AddActor(enemyGun);
+            enemyGun.SetRotation(99);
 
             _currentSceneIndex = AddScene(scene);
             _scenes[_currentSceneIndex].Start();

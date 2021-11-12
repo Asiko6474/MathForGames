@@ -76,7 +76,9 @@ namespace MathForGames
         public override void Draw()
         {
             base.Draw();
-            Collider.Draw();
+
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT))
+                Collider.Draw();
         }
     }
 }
