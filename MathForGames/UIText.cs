@@ -29,7 +29,7 @@ namespace MathForGames
         public override void Draw()
         {
             //Create a new rectangle that will act as the borders of the text box
-            Rectangle textbox = new Rectangle(LocalPosition.x, LocalPosition.y, Width, Height);
+            Rectangle textbox = new Rectangle(LocalPosition.X, LocalPosition.Y, Width, Height);
 
             //Draw the textbox
             Raylib.DrawTextRec(Font, Text, textbox, FontSize, 1, true, FontColor);

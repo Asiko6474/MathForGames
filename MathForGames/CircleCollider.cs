@@ -43,8 +43,8 @@ namespace MathForGames
             Vector2 direction = Owner.LocalPosition - other.Owner.LocalPosition;
 
             //clamp the direction from this vector to get the closest point to the circle
-            direction.x = Math.Clamp(direction.x, -other.Width / 2, other.Width / 2);
-            direction.y = Math.Clamp(direction.y, -other.Height / 2, other.Height / 2);
+            direction.X = Math.Clamp(direction.X, -other.Width / 2, other.Width / 2);
+            direction.Y = Math.Clamp(direction.Y, -other.Height / 2, other.Height / 2);
 
             //Add the direction vector to the AABB center to get the closest point to the circle
             Vector2 closestPoint = other.Owner.LocalPosition + direction;
@@ -59,7 +59,7 @@ namespace MathForGames
         public override void Draw()
         {
             base.Draw();
-            Raylib.DrawCircleLines((int)Owner.LocalPosition.x, (int)Owner.LocalPosition.y, CollisionRadius, Color.PURPLE);
+            Raylib.DrawCircleLines((int)Owner.LocalPosition.X, (int)Owner.LocalPosition.Y, CollisionRadius, Color.PURPLE);
         }
     }
 }

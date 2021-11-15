@@ -31,7 +31,7 @@ namespace MathForGames
 
         public override void Update(float deltaTime)
         {
-
+            
         }
     }
 }

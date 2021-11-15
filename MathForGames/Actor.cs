@@ -64,7 +64,7 @@ namespace MathForGames
             get { return new Vector2(_translation.M02, _translation.M12); }
             set
             {
-                SetTranslation(value.x, value.y);
+                SetTranslation(value.X, value.Y);
             }
         }
 
@@ -81,8 +81,8 @@ namespace MathForGames
                 if (Parent != null)
                 {
                     //...convert the world cooridinates into local cooridinates and translate the actor
-                    float xOffset = (value.x - Parent.WorldPosition.x) / new Vector2(GlobalTransform.M00, GlobalTransform.M10).Magnitude;
-                    float yOffset = (value.y - Parent.WorldPosition.y) / new Vector2(GlobalTransform.M10, GlobalTransform.M11).Magnitude;
+                    float xOffset = (value.X - Parent.WorldPosition.X) / new Vector2(GlobalTransform.M00, GlobalTransform.M10).Magnitude;
+                    float yOffset = (value.Y - Parent.WorldPosition.Y) / new Vector2(GlobalTransform.M10, GlobalTransform.M11).Magnitude;
                     
                     SetTranslation(xOffset, yOffset);
                 }
@@ -127,12 +127,12 @@ namespace MathForGames
                 float yScale = new Vector2(_scale.M01, _scale.M11).Magnitude;
                 return new Vector2(xScale, yScale);  
             }
-            set { SetScale(value.x, value.y); }
+            set { SetScale(value.X, value.Y); }
         }
 
         
         public Actor( float x, float y, string name = "Arthurd", string path = "") :
-            this( new Vector2 { x = x, y = y }, name, path) {}
+            this( new Vector2 { X = x, Y = y }, name, path) {}
 
         public Actor(Vector2 position, string name = "Arthurd", string path = "")
         {
@@ -225,7 +225,7 @@ namespace MathForGames
         public virtual void Update(float deltaTime)
         {
             UpdateTransforms();
-            Console.WriteLine(_name = "Current Position: " + WorldPosition.x + ", " + WorldPosition.y);
+            Console.WriteLine(_name = "Current Position: " + WorldPosition.X + ", " + WorldPosition.Y);
             
         }
 
@@ -332,7 +332,7 @@ namespace MathForGames
             float angle = (float)Math.Acos(dotProd);
 
             //Find a perindicular vector to the direction
-            Vector2 perpDirection = new Vector2(direction.y, -direction.x);
+            Vector2 perpDirection = new Vector2(direction.Y, -direction.X);
 
             //Find the dot product of the perpindicular vector and the current forward
             float perpDot = Vector2.DotProduct(perpDirection, Forward);

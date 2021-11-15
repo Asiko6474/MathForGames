@@ -6,13 +6,13 @@ namespace MathLibrary
 {
     public struct Vector2
     {
-        public float x;
-        public float y;
+        public float X;
+        public float Y;
 
         public Vector2(float x1, float y1)
         {
-            x = x1;
-            y = y1;
+            X = x1;
+            Y = y1;
         }
             
 
@@ -23,7 +23,7 @@ namespace MathLibrary
         {
             get
             {
-                return (float)Math.Sqrt(x * x + y * y);
+                return (float)Math.Sqrt(X * X + Y * Y);
             }
         }
 
@@ -57,7 +57,7 @@ namespace MathLibrary
         /// <returns>The dot product of the first vector on to the second</returns>
         public static float DotProduct(Vector2 lhs, Vector2 rhs)
         {
-            return lhs.x * rhs.x + lhs.y * rhs.y;
+            return lhs.X * rhs.X + lhs.Y * rhs.Y;
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace MathLibrary
         /// <returns>The result of the vector additions</returns>
         public static Vector2 operator +(Vector2 lhs, Vector2 rhs)
         {
-            return new Vector2 { x = lhs.x + rhs.x, y = lhs.y + rhs.y };
+            return new Vector2 { X = lhs.X + rhs.X, Y = lhs.Y + rhs.Y };
         }
 
       /// <summary>
@@ -89,7 +89,7 @@ namespace MathLibrary
       /// <returns></returns>
         public static Vector2 operator *(Vector2 lhs, float scalar)
         {
-            return new Vector2 { x = lhs.x * scalar, y =  lhs.y * scalar};
+            return new Vector2 { X = lhs.X * scalar, Y =  lhs.Y * scalar};
         }
 
         /// <summary>
@@ -100,33 +100,39 @@ namespace MathLibrary
         /// <returns>Result of the vector scaling</returns>
         public static Vector2 operator /(Vector2 lhs, float scalar)
         {
-            return new Vector2 { x = lhs.x / scalar, y = lhs.y / scalar };
+            return new Vector2 { X = lhs.X / scalar, Y = lhs.Y / scalar };
         }
 
         /// <summary>
         /// Subracts X and y values of the second vector from the first.
         /// </summary>
         /// <param name="lhs">The vector that is decreasing</param>
-        /// <param name="scalar">The vector used to decrease the first vector</param>
+        /// <param name="rhs">The vector used to decrease the first vector</param>
         /// <returns></returns>
         public static Vector2 operator -(Vector2 lhs, Vector2 rhs)
         {
-            return new Vector2 { x = lhs.x - rhs.x, y = lhs.y - rhs.y };
+            return new Vector2 { X = lhs.X - rhs.X, Y = lhs.Y - rhs.Y };
         }
         /// <summary>
-        /// Comapres the x and y values of two vectors.
+        /// Compares the x and y values of two vectors.
         /// </summary>
         /// <param name="lhs">The left side of the comparison</param>
         /// <param name="rhs">The right side of the comparison</param>
         /// <returns>True if the x values of both vectors </returns>
         public static bool operator ==(Vector2 lhs, Vector2 rhs)
         {
-            return  lhs.x == rhs.x && lhs.y == rhs.y; 
+            return  lhs.X == rhs.X && lhs.Y == rhs.Y; 
         }
 
+        /// <summary>
+        /// Contrasts the x and y values of two vectors
+        /// </summary>
+        /// <param name="lhs">The left side of the comparison</param>
+        /// <param name="rhs">The right side of the comparison</param>
+        /// <returns></returns>
         public static bool operator !=(Vector2 lhs, Vector2 rhs)
         {
-            return lhs.x != rhs.x && lhs.y != rhs.y;
+            return lhs.X != rhs.X && lhs.Y != rhs.Y;
         }
 
     }

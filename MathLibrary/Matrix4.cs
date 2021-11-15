@@ -19,7 +19,9 @@ namespace MathLibrary
             M30 = m30; M31 = m31; M32 = m32; M33 = m33;
         }
 
-
+        /// <summary>
+        /// The base value of a matrix 4 
+        /// </summary>
         public static Matrix4 Identity
         {
             get
@@ -31,7 +33,7 @@ namespace MathLibrary
             }
         }
         /// <summary>
-        /// Creates a new matrix that has been rotated by the given value in radians
+        /// Create a rotation for the value of Z based on the radians
         /// </summary>
         /// <param name="radians">The result of the rotation</param>
         /// <returns></returns>
@@ -45,6 +47,11 @@ namespace MathLibrary
                     0, 0, 0, 1
                 );
         }
+        /// <summary>
+        /// Create a rotation for the value of Y based on the radians
+        /// </summary>
+        /// <param name="radians">Result of the rotation</param>
+        /// <returns></returns>
         public static Matrix4 CreateRotationY(float radians)
         {
             return new Matrix4
@@ -55,6 +62,12 @@ namespace MathLibrary
                     0, 0, 0, 1
                 );
         }
+
+        /// <summary>
+        /// Create a rotation for the value of Y based on the radians
+        /// </summary>
+        /// <param name="radians">The result of the rotation </param>
+        /// <returns></returns>
         public static Matrix4 CreateRotationX(float radians)
         {
             return new Matrix4
@@ -67,9 +80,11 @@ namespace MathLibrary
         }
 
         /// <summary>
-        /// creates a new matric that has been translated by the given value
+        /// Create a translation based ont the x y and z values
         /// </summary>
-        /// <param name="position">The position of the new matrix</param>
+        /// <param name="x">The value to translate on the X axis</param>
+        /// <param name="y">The value to translate on the Y axis</param>
+        /// <param name="z">The value to translate on the Z axis</param>
         /// <returns></returns>
         public static Matrix4 CreateTranslation(float x, float y, float z)
         {
@@ -99,7 +114,12 @@ namespace MathLibrary
                     0, 0, 0, 1);
         }
 
-
+        /// <summary>
+        /// matrix 4 being added from the values of a lhs and rhs 
+        /// </summary>
+        /// <param name="lhs">Left hand side</param>
+        /// <param name="rhs">Right hand side</param>
+        /// <returns></returns>
         public static Matrix4 operator +(Matrix4 lhs, Matrix4 rhs)
         {
             return new Matrix4(
@@ -108,6 +128,13 @@ namespace MathLibrary
                     lhs.M20 + rhs.M20, lhs.M21 + rhs.M21, lhs.M22 + rhs.M22, lhs.M23 + rhs.M23,
                     lhs.M30 + rhs.M30, lhs.M31 + rhs.M31, lhs.M32 + rhs.M32, lhs.M33 + rhs.M33);
         }
+
+        /// <summary>
+        /// matrix 4 being subtracted from the values of a lhs and rhs
+        /// </summary>
+        /// <param name="lhs">Left hand side</param>
+        /// <param name="rhs">Right hand side</param>
+        /// <returns></returns>
         public static Matrix4 operator -(Matrix4 lhs, Matrix4 rhs)
         {
             return new Matrix4(
@@ -116,6 +143,13 @@ namespace MathLibrary
                    lhs.M20 - rhs.M20, lhs.M21 - rhs.M21, lhs.M22 - rhs.M22, lhs.M23 - rhs.M23,
                    lhs.M30 - rhs.M30, lhs.M31 - rhs.M31, lhs.M32 - rhs.M32, lhs.M33 - rhs.M33);
         }
+
+        /// <summary>
+        /// Matrix 4 being multiplied by the values of a lhs and rhs 
+        /// </summary>
+        /// <param name="lhs">Left hand side</param>
+        /// <param name="rhs">Right hand side</param>
+        /// <returns></returns>
         public static Matrix4 operator *(Matrix4 lhs, Matrix4 rhs)
         {
             
@@ -158,9 +192,6 @@ namespace MathLibrary
 
 
         }
-        //public static Vector3 operator *(Matrix3 lhs, Vector3 rhs)
-        //{
-        //    return new Vector3();
-        //}
+       
     }
 }

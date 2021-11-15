@@ -17,7 +17,9 @@ namespace MathLibrary
             M20 = m20; M21 = m21; M22 = m22;
         }
 
-
+        /// <summary>
+        /// Is the base matrix values.
+        /// </summary>
         public static Matrix3 Identity
         {
             get
@@ -45,8 +47,6 @@ namespace MathLibrary
         /// <summary>
         /// creates a new matric that has been translated by the given value
         /// </summary>
-        /// <param name="translation"></param>
-        /// <returns></returns>
         public static Matrix3 CreateTranslation(float x, float y)
         {
             return new Matrix3(1, 0, x,
@@ -57,8 +57,6 @@ namespace MathLibrary
         /// <summary>
         /// Creates a new matrix that has been scaled by the given value
         /// </summary>
-        /// <param name="scale"></param>
-        /// <returns></returns>
         public static Matrix3 CreateScale(float x, float y)
         {
             return new Matrix3 (x, 0, 0,
@@ -66,18 +64,36 @@ namespace MathLibrary
                                0, 0, 1);
         }
 
+        /// <summary>
+        /// Creates a new Matrix based on the values of lhs and rhs being added together.
+        /// </summary>
+        /// <param name="lhs">Left hand side </param>
+        /// <param name="rhs">Right hand side</param>
+        /// <returns></returns>
         public static Matrix3 operator +(Matrix3 lhs, Matrix3 rhs)
         {
             return new Matrix3(lhs.M00 + rhs.M00, lhs.M01 + rhs.M01, lhs.M02 + rhs.M02, 
                                lhs.M10 + rhs.M10, lhs.M11 + rhs.M11, lhs.M12 + rhs.M12,
                                lhs.M20 + rhs.M20, lhs.M21 + rhs.M21, lhs.M22 + rhs.M22);
         }
+        /// <summary>
+        /// Creates a new Matrix based on the values of lhs and rhs being subtracted 
+        /// </summary>
+        /// <param name="lhs">Left hand side</param>
+        /// <param name="rhs">Right hand side</param>
+        /// <returns></returns>
         public static Matrix3 operator -(Matrix3 lhs, Matrix3 rhs)
         {
             return new Matrix3(lhs.M00 - rhs.M00, lhs.M01 - rhs.M01, lhs.M02 - rhs.M02,
                                lhs.M10 - rhs.M10, lhs.M11 - rhs.M11, lhs.M12 - rhs.M12,
                                lhs.M20 - rhs.M20, lhs.M21 - rhs.M21, lhs.M22 - rhs.M22);
         }
+        /// <summary>
+        /// Matrix being multiplied by the lhs and rhs.
+        /// </summary>
+        /// <param name="lhs">Left hand side</param>
+        /// <param name="rhs">Right hand side</param>
+        /// <returns></returns>
         public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)
         {
                                //Row 1, column 1
