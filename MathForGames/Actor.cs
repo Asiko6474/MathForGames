@@ -41,24 +41,35 @@ namespace MathForGames
             get { return _started; }
         }
 
-        
+        /// <summary>
+        /// Sets the collider for the actor
+        /// </summary>
         public Collider Collider
         {
             get { return _collider; }
             set { _collider = value; }
         }
 
+        /// <summary>
+        /// Sets the movement of the actor
+        /// </summary>
         public Vector2 Forward
         {
             get { return new Vector2(_rotation.M00, _rotation.M10); }
         }
 
+        /// <summary>
+        /// Sets the sprite
+        /// </summary>
         public Sprite Sprite
         {
             get { return _sprite; }
             set { _sprite = value; }
         }
 
+        /// <summary>
+        /// position around the specific point
+        /// </summary>
         public Vector2 LocalPosition
         {
             get { return new Vector2(_translation.M02, _translation.M12); }
@@ -93,6 +104,9 @@ namespace MathForGames
             }
         }
 
+        /// <summary>
+        /// Moves around the world position 
+        /// </summary>
         public Matrix3 GlobalTransform
         {
             get { return _globalTransform; }
@@ -102,23 +116,34 @@ namespace MathForGames
             }
         }
 
+        /// <summary>
+        /// Moves around the local position
+        /// </summary>
         public Matrix3 LocalTransform
         {
             get { return _localTransform; }
             set { _localTransform = value; }
         }
 
+        /// <summary>
+        /// Sets the parent for a child
+        /// </summary>
         public Actor Parent
         {
             get { return _parent; }
             set { _parent = value; }
         }
 
+        /// <summary>
+        /// Sets the children for the parent
+        /// </summary>
         public Actor[] Children
         {
             get { return _children; }
         }
-
+        /// <summary>
+        /// edits the size of an actor.
+        /// </summary>
             public Vector2 Size
         {
             get 
@@ -130,7 +155,13 @@ namespace MathForGames
             set { SetScale(value.X, value.Y); }
         }
 
-        
+        /// <summary>
+        /// Initializes the actor's values
+        /// </summary>
+        /// <param name="x">The starting X position</param>
+        /// <param name="y">The startomg Y position</param>
+        /// <param name="name">The name of the actor (Arthurd by default)</param>
+        /// <param name="path">The file location the actor will find their sprite in.</param>
         public Actor( float x, float y, string name = "Arthurd", string path = "") :
             this( new Vector2 { X = x, Y = y }, name, path) {}
 
@@ -139,26 +170,38 @@ namespace MathForGames
             LocalPosition = position;
             _name = name;
 
+            //If the path is not set to nothing
             if (path != "")
+                //The sprite will follow the path 
                 _sprite = new Sprite(path);
 
         }
 
+        /// <summary>
+        /// Updates all actor's transformations.
+        /// </summary>
         public void UpdateTransforms()
         {
             
             _localTransform = _translation * _rotation * _scale;
+
+            //If the parent is set to something
             if (Parent != null)
             {
+                //Base the local transformation on the parent's global transformation.
                 GlobalTransform = Parent.GlobalTransform * LocalTransform;
             }
             else
                 GlobalTransform = LocalTransform;
         }
 
+        /// <summary>
+        /// Adds a child for a parent
+        /// </summary>
+        /// <param name="child"></param>
         public void AddChild(Actor child)
         {
-            //Creat a temp array larger than the original
+            //Create a temp array larger than the original
             Actor[] tempArray = new Actor[_children.Length + 1];
 
             //Copy all values from the original array into the temp array
@@ -176,6 +219,11 @@ namespace MathForGames
             child.Parent = this;
         }
 
+        /// <summary>
+        /// Removes the child from a parent
+        /// </summary>
+        /// <param name="child"></param>
+        /// <returns></returns>
         public bool RemoveChild(Actor child)
         {
             //create a variable to store if the removal was successful

@@ -73,12 +73,21 @@ namespace MathForGames
             }
         }
 
+        /// <summary>
+        /// Initializes the collider based on width, and height. This should come out as a box collider
+        /// </summary>
+        /// <param name="width">How wide the box will be</param>
+        /// <param name="height">How tall the box with be</param>
+        /// <param name="owner">The actor the collider will be assigned to</param>
         public AABBCollider(float width, float height, Actor owner) : base(owner, ColliderType.AABB)
         {
             _width = width;
             _height = height;
         }
 
+        /// <summary>
+        /// Checks for a collision with any other box colliders.
+        /// </summary>
         public override bool CheckCollisionAABB(AABBCollider other)
         {
             //Return false if this owner is checking for a collision against itself 
@@ -102,6 +111,11 @@ namespace MathForGames
             Raylib.DrawRectangleLines((int)Left, (int)Top, (int)Width, (int)Height, Color.YELLOW);
         }
 
+        /// <summary>
+        /// Checks to see if there is a collision with a circdle collider
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public override bool CheckCollisionCircle(CircleCollider other)
         {
             return other.CheckCollisionAABB(this);

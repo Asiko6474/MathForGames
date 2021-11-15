@@ -13,26 +13,43 @@ namespace MathForGames
             get { return _collisionRadius; }
             set { _collisionRadius = value; }
         }
-
+        /// <summary>
+        /// Initializes the collider
+        /// </summary>
+        /// <param name="collisionRadius">How wide the collider will be</param>
+        /// <param name="owner">The actor the collider is for.</param>
         public CircleCollider(float collisionRadius, Actor owner) :base (owner, ColliderType.CIRCLE)
         {
             _collisionRadius = collisionRadius;
         }
 
+        /// <summary>
+        /// Checks to see if the collider is colliding with something 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public override bool CheckCollisionCircle(CircleCollider other)
         {
-            
+            //If the collider is colliding with itself
             if (other.Owner == Owner)
+                //return false
                 return false;
 
-            
+            //Check the distance of colliders
             float distance = Vector2.Distance(other.Owner.LocalPosition, Owner.LocalPosition);
+            //With the combined radii
             float combinedRadii = other.CollisionRadius + CollisionRadius;
 
+            //and return to see if the distance is less than the combined radii. 
             return distance <= combinedRadii;
+            //If distance is less than the combinedRadii then there is a collision
         }
 
-
+        /// <summary>
+        /// Checks the circle collider to see if it works with the AABB collision.
+        /// </summary>
+        /// <param name="other">Other is the owner of the collider</param>
+        /// <returns></returns>
         public override bool CheckCollisionAABB(AABBCollider other)
         {
             //Return false if this collider is checking collision against itself

@@ -17,18 +17,31 @@ namespace MathForGames
         private float _maxViewAngle;
 
 
+        //Set the speed for the tagger
         public float Speed
         {
             get { return _speed; }
             set { _speed = value; }
         }
 
+        // Sets the velocity value
         public Vector2 Velocity
         {
             get { return _velocity; }
             set { _velocity = value; }
         }
 
+        /// <summary>
+        /// Initializes the 
+        /// </summary>
+        /// <param name="x">the starting X position</param>
+        /// <param name="y">the starting Y position</param>
+        /// <param name="speed">the speed of the tagger</param>
+        /// <param name="maxViewAngle">The angle required for the tagger to see the player</param>
+        /// <param name="maxSightDistance">the max amount of distance the enemy can see the tagger</param>
+        /// <param name="target">what the tagger is after</param>
+        /// <param name="name">The name of the tagger</param>
+        /// <param name="path">the file location of the tagger's sprite</param>
         public Tagger(float x, float y, float speed, float maxViewAngle, float maxSightDistance, Actor target, string name = "Tagger", string path = "")
            : base(x, y, name, path)
         {
@@ -58,6 +71,10 @@ namespace MathForGames
             base.Update(deltaTime);
         }
 
+        /// <summary>
+        /// this function allows the tagger to see the target.
+        /// </summary>
+        /// <returns></returns>
         public bool GetTargetInSight()
         {
             Vector2 directionOfTarget = (_target.LocalPosition - LocalPosition).Normalized;
@@ -77,6 +94,7 @@ namespace MathForGames
         {
             base.Draw();
 
+            //When the left shift button is pressed, show the hitbox 
             if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT))
                 Collider.Draw();
         }

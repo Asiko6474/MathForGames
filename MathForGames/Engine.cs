@@ -60,36 +60,55 @@ namespace MathForGames
 
             Scene scene = new Scene();
 
-            //X position, Y position, speed, Name, Sprite.
+            //Starts up the player with the following information: X position, Y position, speed, Name, Sprite.
             Player pepsiPlayer = new Player(100, 100, 150, "Player", "Images/PepsiSun.png");
+            //Sets up the circle collider for the pepsi planet
             CircleCollider SunBoxCollider = new CircleCollider(10, pepsiPlayer);
+            //sets up the mentos gun that will be attached to the player
             Actor playerGun = new Actor(0, 0.6f, "planet", "images/gun.png");
+            //sets up the mento's box collider. Note: this should be a box to fit the scale of the model better.
             AABBCollider PlanetBoxCollider = new AABBCollider(36, 36, playerGun);
             //X position, Y position, speed, Max ViewAngle, Max sight distance, Target, Name, Sprite.
             Tagger tagger = new Tagger(50, 200, 150, 300, 300, pepsiPlayer, "Actor", "Images/Enemy.png");
             //Collider but for circles
             CircleCollider enemyCollider = new CircleCollider(39, tagger);
+            //Sets up the enemy's mentos gun
             Actor enemyGun = new Actor(0, 0.6f, "planet", "images/gun.png");
 
-
+            //Sets the size of the player
             pepsiPlayer.SetScale(75, 75);
+            //sets the spawn point of the player
             pepsiPlayer.SetTranslation(400, 225);
+            //Make the player displayed
             scene.AddActor(pepsiPlayer);
+            //assign the player a collider
             pepsiPlayer.Collider = SunBoxCollider;
             
+            //sets up the player's gun
             playerGun.SetScale(0.9f, 0.9f);
+            //Sets the gun to be a child of the player
             pepsiPlayer.AddChild(playerGun);
+            //Adds in the gun for the player
             scene.AddActor(playerGun);
+            //Sets the rotation of the gun, this rotation should never change by itself.
             playerGun.SetRotation(99);
+            //Sets the collider for the gun. The player should have this to be able to use the gun as a melee weapon.
             playerGun.Collider = PlanetBoxCollider;
 
+            //adds in the enemy
             scene.AddActor(tagger);
+            //Sets the size of the enemy
             tagger.SetScale(75, 75);
+            //Sets the collider to be part of the enemy
             tagger.Collider = enemyCollider;
 
+            //Sets the scale of the enemy's mentos gun
             enemyGun.SetScale(0.9f, 0.9f);
+            //Makes the enemy gun be a child of the enemy
             tagger.AddChild(enemyGun);
+            //adds in the mentos gun for the enemy
             scene.AddActor(enemyGun);
+            //Sets the rotation of the mentos gun
             enemyGun.SetRotation(99);
 
             _currentSceneIndex = AddScene(scene);

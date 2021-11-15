@@ -47,13 +47,17 @@ namespace MathForGames
             //create a vector that stores the move input
             Vector2 moveDirection = new Vector2(xDirection, yDirection);
 
+            //if the left shit key is being pressed
             if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT))
             {
+                // Set the player speed to 100
                 Speed = 100;
             }
 
+            //once the left shift button is released
             if (Raylib.IsKeyReleased(KeyboardKey.KEY_LEFT_SHIFT))
             {
+                // set the player speed to 200
                 Speed = 200;
             }
 
