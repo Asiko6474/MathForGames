@@ -83,11 +83,6 @@ namespace MathForGames
         }
         
 
-        public virtual void OnCollision(Actor actor)
-        {
-            //if (actor is Tagger)
-            //    Engine.CloseApplication();
-        }
 
         public override void Draw()
         {

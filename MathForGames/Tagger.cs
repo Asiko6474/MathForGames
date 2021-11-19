@@ -87,7 +87,36 @@ namespace MathForGames
 
         public override void OnCollision(Actor actor)
         {
-            Console.WriteLine("Collision occured");
+            if (actor is Bullet)
+            {
+                Random num = new Random();
+                int spawn = num.Next(0, 4);
+                if (spawn == 0)
+                {
+                    SetTranslation(25, 50);
+                }
+                if (spawn == 1)
+                {
+                    SetTranslation(700, 200);
+                }
+                if (spawn == 2)
+                {
+                    SetTranslation(400, 200);
+                }
+                if (spawn == 3)
+                {
+                    SetTranslation(500, 250);
+                }
+                if (spawn == 4)
+                {
+                    SetTranslation(250, 400);
+                }
+            }
+            else
+            {
+
+                Engine.CloseApplication();
+            }
         }
 
         public override void Draw()

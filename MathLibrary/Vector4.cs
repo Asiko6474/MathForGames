@@ -55,7 +55,7 @@ namespace MathLibrary
         /// <returns>The dot product of the first vector on to the second</returns>
         public static float DotProduct(Vector4 lhs, Vector4 rhs)
         {
-            return (lhs.X * rhs.X) + (lhs.Y * rhs.Y) + (lhs.Z * rhs.Z);
+            return (lhs.X * rhs.X) + (lhs.Y * rhs.Y) + (lhs.Z * rhs.Z) * (lhs.W * rhs.W);
         }
 
         public static Vector4 CrossProduct(Vector4 lhs, Vector4 rhs)
@@ -105,11 +105,14 @@ namespace MathLibrary
         /// <param name="lhs">The vector that is being scaled </param>
         /// <param name="scalar">The value to scale the vector by</param>
         /// <returns></returns>
-        public static Vector4 operator *(Vector4 lhs, float scalar)
+        public static Vector4 operator *(float scalar, Vector4 lhs )
         {
             return new Vector4 { X = lhs.X * scalar, Y = lhs.Y * scalar, Z = lhs.Z * scalar, W = lhs.W * scalar };
         }
-
+        public static Vector4 operator *( Vector4 lhs, float scalar)
+        {
+            return new Vector4 { X = lhs.X * scalar, Y = lhs.Y * scalar, Z = lhs.Z * scalar, W = lhs.W * scalar };
+        }
 
         /// <summary>
         /// Divides X, Y, Z, or W values by a scalar

@@ -102,7 +102,18 @@ namespace MathLibrary
         /// <param name="lhs">The vector that is being scaled </param>
         /// <param name="scalar">The value to scale the vector by</param>
         /// <returns></returns>
-        public static Vector3 operator *(Vector3 lhs, float rhs)
+        public static Vector3 operator *(float rhs, Vector3 lhs )
+        {
+            return new Vector3 { X = lhs.X * rhs, Y = lhs.Y * rhs, Z = lhs.Z * rhs };
+        }
+
+        /// <summary>
+        /// Multiplies the X, Y, and Z vectors of one vector to another
+        /// </summary>
+        /// <param name="lhs">The vector that is being scaled </param>
+        /// <param name="scalar">The value to scale the vector by</param>
+        /// <returns></returns>
+        public static Vector3 operator *(Vector3 lhs, float rhs )
         {
             return new Vector3 { X = lhs.X * rhs, Y = lhs.Y * rhs, Z = lhs.Z * rhs };
         }

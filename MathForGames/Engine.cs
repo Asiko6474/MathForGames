@@ -27,25 +27,25 @@ namespace MathForGames
             float lastTime = 0;
             float deltaTime = 0;
             //Loop until the application is told to close.
-                while (!Raylib.WindowShouldClose())
-                {
+            while (!_applicationShouldClose && !Raylib.WindowShouldClose())
+            {
                 //Get how much time has passed since the application started
                 currentTime = _stopwatch.ElapsedMilliseconds / 1000.0f;
 
                 //Set delta time to be the difference in time from the last time recorded to the current time 
                 deltaTime = currentTime - lastTime;
                 //Update the application
-                    Update(deltaTime);
+                Update(deltaTime);
                 //Draw all items
-                    Draw();
-                
+                Draw();
+
                 //Set the last time recorded to be the current time
                 lastTime = currentTime;
-               
-                }
+
+            }
 
             // call end for the entire application.
-            End();  
+            End();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace MathForGames
         {
             _stopwatch.Start();
             //Create a window using raylib
-            Raylib.InitWindow(800,450, "Pepsi for TV Game");
+            Raylib.InitWindow(800, 450, "Pepsi for TV Game");
             Raylib.SetTargetFPS(60);
 
             Scene scene = new Scene();
@@ -65,15 +65,13 @@ namespace MathForGames
             //Sets up the circle collider for the pepsi planet
             CircleCollider SunBoxCollider = new CircleCollider(10, pepsiPlayer);
             //sets up the mentos gun that will be attached to the player
-            Actor playerGun = new Actor(0, 0.6f, "planet", "images/gun.png");
+            Bullet playerGun = new Bullet(0, 0, "planet", "images/gun.png");
             //sets up the mento's box collider. Note: this should be a box to fit the scale of the model better.
-            AABBCollider PlanetBoxCollider = new AABBCollider(36, 36, playerGun);
+            AABBCollider PlanetBoxCollider = new AABBCollider(15, 50, playerGun);
             //X position, Y position, speed, Max ViewAngle, Max sight distance, Target, Name, Sprite.
-            Tagger tagger = new Tagger(50, 200, 150, 300, 300, pepsiPlayer, "Actor", "Images/Enemy.png");
+            Tagger tagger = new Tagger(50, 200, 150, 800, 800, pepsiPlayer, "Actor", "Images/Enemy.png");
             //Collider but for circles
             CircleCollider enemyCollider = new CircleCollider(39, tagger);
-            //Sets up the enemy's mentos gun
-            Actor enemyGun = new Actor(0, 0.6f, "planet", "images/gun.png");
 
             //Sets the size of the player
             pepsiPlayer.SetScale(75, 75);
@@ -83,11 +81,12 @@ namespace MathForGames
             scene.AddActor(pepsiPlayer);
             //assign the player a collider
             pepsiPlayer.Collider = SunBoxCollider;
-            
+
             //sets up the player's gun
-            playerGun.SetScale(0.9f, 0.9f);
-            //Sets the gun to be a child of the player
-            pepsiPlayer.AddChild(playerGun);
+            playerGun.SetScale(50, 50);
+            playerGun.SetTranslation(400, 150);
+            ////Sets the gun to be a child of the player
+            //pepsiPlayer.AddChild(playerGun);
             //Adds in the gun for the player
             scene.AddActor(playerGun);
             //Sets the rotation of the gun, this rotation should never change by itself.
@@ -101,15 +100,6 @@ namespace MathForGames
             tagger.SetScale(75, 75);
             //Sets the collider to be part of the enemy
             tagger.Collider = enemyCollider;
-
-            //Sets the scale of the enemy's mentos gun
-            enemyGun.SetScale(0.9f, 0.9f);
-            //Makes the enemy gun be a child of the enemy
-            tagger.AddChild(enemyGun);
-            //adds in the mentos gun for the enemy
-            scene.AddActor(enemyGun);
-            //Sets the rotation of the mentos gun
-            enemyGun.SetRotation(99);
 
             _currentSceneIndex = AddScene(scene);
             _scenes[_currentSceneIndex].Start();
