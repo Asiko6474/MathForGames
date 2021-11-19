@@ -33,8 +33,6 @@ namespace MathForGames
 
         public override void Update(float deltaTime)
         {
-
-
             base.Update(deltaTime);
         }
 
@@ -49,10 +47,6 @@ namespace MathForGames
         public override void OnCollision(Actor actor)
         {
             if (actor is Player)
-            {
-                RandomNumber();
-            }
-            if (actor is Tagger)
             {
                 RandomNumber();
             }
