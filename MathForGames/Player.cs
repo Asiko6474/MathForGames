@@ -41,6 +41,7 @@ namespace MathForGames
             int yDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
 
             float growth = Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_X));
+            float shrink = Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_Z));
 
             float Rotation = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_LEFT)) + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT));
            
@@ -66,9 +67,9 @@ namespace MathForGames
                 Scale(growth + deltaTime, growth + deltaTime);
             }
 
-            if (Raylib.IsKeyReleased(KeyboardKey.KEY_X))
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_Z))
             {
-                Scale(growth / deltaTime, growth / deltaTime);
+                Scale(shrink - deltaTime, shrink - deltaTime);
             }
             Velocity = moveDirection.Normalized * Speed * deltaTime;
 
